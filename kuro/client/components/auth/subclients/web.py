@@ -1,13 +1,10 @@
 """Web auth client."""
 
 import typing
-import urllib.parse
 
-from ... import base
+from ..... import errors, models
 from .... import routes
-from ..... import models
-from ..... import errors
-
+from ... import base
 
 __all__ = ["WebAuthClient"]
 
@@ -31,6 +28,7 @@ class WebAuthClient(base.BaseClient):
         Args:
             number (str): Chinese phone number.
             mmt_result (models.MMTResult, optional): MMT result with solved captcha.
+
         Returns:
             bool: Whether the SMS code is sent successfully. False means geetest was triggered.
         """
@@ -53,6 +51,7 @@ class WebAuthClient(base.BaseClient):
 
         Args:
             number (str): Chinese phone number.
+
         Returns:
             models.LoginResult: Login result.
         """

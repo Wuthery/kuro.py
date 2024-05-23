@@ -3,7 +3,6 @@
 import pydantic
 from pydantic import alias_generators
 
-
 __all__ = ["APIModel"]
 
 

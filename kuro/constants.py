@@ -4,7 +4,6 @@ import typing
 
 from . import types
 
-
 __all__ = ["GEETEST_LANGS"]
 
 

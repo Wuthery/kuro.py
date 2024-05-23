@@ -2,7 +2,6 @@
 
 import enum
 
-
 __all__ = ["Game", "Lang"]
 
 

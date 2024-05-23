@@ -1,23 +1,22 @@
 """Base client."""
 
 import abc
-import json
 import http.cookies
+import json
 import logging
 import typing
-import yarl
 
 import aiohttp
+import yarl
 
 from ... import types
-
 
 CookieOrHeader = typing.Union[
     "http.cookies.BaseCookie[typing.Any]", typing.Mapping[typing.Any, typing.Any], str
 ]
 
 
-def parse_cookie(cookie: typing.Optional[CookieOrHeader]) -> typing.Dict[str, str]:
+def parse_cookie(cookie: CookieOrHeader | None) -> dict[str, str]:
     """Parse a cookie or header into a cookie mapping."""
     if cookie is None:
         return {}
@@ -36,12 +35,12 @@ class BaseClient(abc.ABC):
     logger: logging.Logger = logging.getLogger(__name__)
     """Logger for the client."""
 
-    _cookies: typing.Dict[str, str]
+    _cookies: dict[str, str]
     """Cookies used for authentication."""
 
     def __init__(
         self,
-        cookies: typing.Optional[CookieOrHeader] = None,
+        cookies: CookieOrHeader | None = None,
         *,
         lang: types.Lang = types.Lang.ENGLISH,
         debug: bool = False,
@@ -57,7 +56,7 @@ class BaseClient(abc.ABC):
         method: str,
         url: aiohttp.typedefs.StrOrURL,
         *,
-        params: typing.Optional[typing.Mapping[str, typing.Any]] = None,
+        params: typing.Mapping[str, typing.Any] | None = None,
         data: typing.Any = None,
         **kwargs: typing.Any,
     ) -> None:
@@ -79,14 +78,13 @@ class BaseClient(abc.ABC):
         self,
         url: aiohttp.typedefs.StrOrURL,
         *,
-        method: typing.Optional[str] = None,
-        params: typing.Optional[typing.Mapping[str, typing.Any]] = None,
+        method: str | None = None,
+        params: typing.Mapping[str, typing.Any] | None = None,
         data: typing.Any = None,
-        headers: typing.Optional[aiohttp.typedefs.LooseHeaders] = None,
+        headers: aiohttp.typedefs.LooseHeaders | None = None,
         **kwargs: typing.Any,
     ) -> typing.Mapping[str, typing.Any]:
         """Make a request to the API. All requests the library makes go through this method."""
-
         # TODO: Implement getting data from cache here
 
         if "json" in kwargs:
@@ -119,7 +117,7 @@ class BaseClient(abc.ABC):
         return self._cookies
 
     @cookies.setter
-    def cookies(self, cookies: typing.Optional[CookieOrHeader]) -> None:
+    def cookies(self, cookies: CookieOrHeader | None) -> None:
         if not cookies:
             self._cookies = {}
             return
@@ -128,7 +126,7 @@ class BaseClient(abc.ABC):
 
     def set_cookies(
         self,
-        cookies: typing.Optional[CookieOrHeader] = None,
+        cookies: CookieOrHeader | None = None,
         **kwargs: typing.Any,
     ) -> typing.MutableMapping[str, str]:
         """Parse and set cookies."""

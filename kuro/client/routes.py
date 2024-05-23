@@ -1,6 +1,7 @@
 """All API endpoints in one place."""
 
 import abc
+
 import yarl
 
 __all__ = ["GET_SMS_CODE", "WEB_LOGIN", "Route"]

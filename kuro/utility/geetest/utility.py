@@ -1,8 +1,6 @@
 """Geetest utility functions."""
 
-from ... import constants
-from ... import types
-
+from ... import constants, types
 
 __all__ = ["lang_to_geetest_lang"]
 

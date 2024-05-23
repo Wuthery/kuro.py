@@ -7,14 +7,13 @@ import webbrowser
 import aiohttp
 from aiohttp import web
 
-from ...models import MMTResult
 from ... import types
+from ...models import MMTResult
 from .utility import lang_to_geetest_lang
-
 
 __all__ = ["PAGES", "enter_code", "launch_server", "solve_geetest"]
 
-PAGES: typing.Final[typing.Dict[typing.Literal["captcha", "enter-code"], str]] = {
+PAGES: typing.Final[dict[typing.Literal["captcha", "enter-code"], str]] = {
     "captcha": """
     <!DOCTYPE html>
     <head>
@@ -89,9 +88,9 @@ async def launch_server(
 async def launch_server(
     page: typing.Literal["captcha", "enter-code"],
     *,
-    lang: typing.Optional[str] = None,
+    lang: str | None = None,
     port: int = 5000,
-) -> typing.Union[MMTResult, str]:
+) -> MMTResult | str:
     """Create and run a web server to solve captcha or enter a verification code."""
     routes = web.RouteTableDef()
     future: asyncio.Future[typing.Any] = asyncio.Future()
@@ -147,7 +146,7 @@ async def solve_geetest(
     *,
     lang: str = types.Lang,
     port: int = 5000,
-) -> typing.Union[MMTResult]:
+) -> MMTResult:
     """Start a web server and manually solve geetest captcha."""
     lang = lang_to_geetest_lang(lang)
     return await launch_server(

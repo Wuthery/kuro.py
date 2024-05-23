@@ -2,7 +2,6 @@
 
 from .components import auth
 
-
 __all__ = ["Client"]
 
 

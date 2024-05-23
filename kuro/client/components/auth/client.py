@@ -1,8 +1,8 @@
 """Auth component responsible for authentication."""
 
-from .subclients import GameAuthClient, WebAuthClient
-from ....utility.geetest import server
 from .... import models
+from ....utility.geetest import server
+from .subclients import GameAuthClient, WebAuthClient
 
 __all__ = ["AuthClient"]
 

@@ -1,8 +1,8 @@
 """Auth-related models."""
 
 import pydantic
-from .base import APIModel
 
+from .base import APIModel
 
 __all__ = ["LoginResult", "MMTResult"]
 
