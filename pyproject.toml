@@ -6,6 +6,7 @@ dependencies = [
 description = "Async API wrapper for KuroBBS written in Python."
 name = "kuro"
 version = "0.1.0"
+requires-python = ">=3.10"
 
 [tool.poetry]
 authors = [
