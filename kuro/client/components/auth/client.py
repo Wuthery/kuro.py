@@ -1,8 +1,14 @@
 """Auth component responsible for authentication."""
 
-from .... import models
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from ....utility.geetest import server
 from .subclients import GameAuthClient, WebAuthClient
+
+if TYPE_CHECKING:
+    from .... import models
 
 __all__ = ["AuthClient"]
 

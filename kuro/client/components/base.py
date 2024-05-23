@@ -66,7 +66,7 @@ class BaseClient(abc.ABC):
         """
         url = yarl.URL(url)
         if params:
-            params = {k: v for k, v in params.items()}
+            params = dict(params.items())
             url = url.update_query(params)
 
         if data:
@@ -88,24 +88,24 @@ class BaseClient(abc.ABC):
         # TODO: Implement getting data from cache here
 
         if "json" in kwargs:
-            raise TypeError("Use data instead of json in request.")
+            msg = "Use data instead of json in request."
+            raise TypeError(msg)
 
         if method is None:
             method = "POST" if data else "GET"
 
         await self._request_hook(method, url, params=params, data=data, headers=headers, **kwargs)
 
-        async with aiohttp.ClientSession() as session:
-            async with session.request(
-                method,
-                url,
-                params=params,
-                data=data,
-                headers=headers,
-                cookies=self.cookies,
-                **kwargs,
-            ) as response:
-                data = await response.json()
+        async with aiohttp.ClientSession() as session, session.request(
+            method,
+            url,
+            params=params,
+            data=data,
+            headers=headers,
+            cookies=self.cookies,
+            **kwargs,
+        ) as response:
+            data = await response.json()
 
         # TODO: Implement setting data to cache here
 
@@ -131,7 +131,8 @@ class BaseClient(abc.ABC):
     ) -> typing.MutableMapping[str, str]:
         """Parse and set cookies."""
         if not bool(cookies) ^ bool(kwargs):
-            raise TypeError("Cannot use both positional and keyword arguments at once")
+            msg = "Cannot use both positional and keyword arguments at once"
+            raise TypeError(msg)
 
         self.cookies = parse_cookie(cookies or kwargs)
         return self.cookies

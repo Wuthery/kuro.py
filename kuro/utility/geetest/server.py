@@ -112,11 +112,7 @@ async def launch_server(
     @routes.post("/send-data")
     async def send_data_endpoint(request: web.Request) -> web.Response:
         result = await request.json()
-        if "code" in result:
-            result = result["code"]
-        else:
-            result = MMTResult(**result)
-
+        result = result.get("code", MMTResult(**result))
         future.set_result(result)
         return web.Response(status=204)
 

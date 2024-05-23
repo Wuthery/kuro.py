@@ -41,16 +41,14 @@ class WebAuthClient(base.BaseClient):
         if not rsp["success"]:
             errors.raise_from_data(rsp)
 
-        if rsp["data"]["geeTest"]:
-            return False
-
-        return True
+        return not rsp["data"]["geeTest"]
 
     async def _web_login(self, number: str, code: str) -> models.LoginResult:
         """Login with a phone number and OTP code.
 
         Args:
             number (str): Chinese phone number.
+            code (str): OTP code.
 
         Returns:
             models.LoginResult: Login result.
