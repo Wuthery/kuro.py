@@ -1,34 +1,48 @@
 [project]
-name = "kuro"
-version = "0.1.0"
-description = "Async API wrapper for KuroBBS written in Python."
 dependencies = [
   "pydantic>=2.0.1",
   "aiohttp>=3.8.4",
 ]
+description = "Async API wrapper for KuroBBS written in Python."
+name = "kuro"
+version = "0.1.0"
 
 [tool.poetry]
-name = "kuro"
-license = "GNU"
-version = "0.1.0"
-description = "Async API wrapper for KuroBBS written in Python."
 authors = [
-    "JokelBaf <jokelbaf@gmail.com>",
+  "JokelBaf <jokelbaf@gmail.com>",
 ]
-maintainers = [
-    "JokelBaf <jokelbaf@gmail.com>",
-]
-readme = "README.md"
-homepage = "https://github.com/Wuthery/kuro.py"
-repository = "https://github.com/Wuthery/kuro.py"
+description = "Async API wrapper for KuroBBS written in Python."
 documentation = "https://github.com/Wuthery/kuro.py"
+homepage = "https://github.com/Wuthery/kuro.py"
 keywords = ["kuro", "wuwa", "api", "wraper", "kurobbs"]
+license = "GNU"
+maintainers = [
+  "JokelBaf <jokelbaf@gmail.com>",
+]
+name = "kuro"
+readme = "README.md"
+repository = "https://github.com/Wuthery/kuro.py"
+version = "0.1.0"
 
 [tool.poetry.dependencies]
-pydantic = "^2.0.1"
 aiohttp = "^3.8.4"
+pydantic = "^2.0.1"
 python = "^3.10"
 
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.7.1"
+ruff = "^0.4.5"
+
+[tool.poetry.group.test]
+optional = true
+
+[tool.poetry.group.test.dependencies]
+pytest = "^8.2.1"
+pytest-asyncio = "^0.23.7"
+
 [build-system]
-requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core"]
