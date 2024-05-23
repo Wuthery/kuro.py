@@ -1,0 +1,34 @@
+[project]
+name = "kuro"
+version = "0.1.0"
+description = "Async API wrapper for KuroBBS written in Python."
+dependencies = [
+  "pydantic>=2.0.1",
+  "aiohttp>=3.8.4",
+]
+
+[tool.poetry]
+name = "kuro"
+license = "GNU"
+version = "0.1.0"
+description = "Async API wrapper for KuroBBS written in Python."
+authors = [
+    "JokelBaf <jokelbaf@gmail.com>",
+]
+maintainers = [
+    "JokelBaf <jokelbaf@gmail.com>",
+]
+readme = "README.md"
+homepage = "https://github.com/Wuthery/kuro.py"
+repository = "https://github.com/Wuthery/kuro.py"
+documentation = "https://github.com/Wuthery/kuro.py"
+keywords = ["kuro", "wuwa", "api", "wraper", "kurobbs"]
+
+[tool.poetry.dependencies]
+pydantic = "^2.0.1"
+aiohttp = "^3.8.4"
+python = "^3.10"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
