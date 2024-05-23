@@ -7,9 +7,7 @@ import webbrowser
 import aiohttp
 from aiohttp import web
 
-from ...models import (
-    MMTResult
-)
+from ...models import MMTResult
 from ... import types
 from .utility import lang_to_geetest_lang
 

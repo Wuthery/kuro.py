@@ -33,6 +33,7 @@ class LoginResult(APIModel):
     token: str
     """Cookie token used to access API."""
 
+
 class MMTResult(pydantic.BaseModel):
     """MMT result model."""
 

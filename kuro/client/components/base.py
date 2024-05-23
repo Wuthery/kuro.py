@@ -12,7 +12,10 @@ import aiohttp
 from ... import types
 
 
-CookieOrHeader = typing.Union["http.cookies.BaseCookie[typing.Any]", typing.Mapping[typing.Any, typing.Any], str]
+CookieOrHeader = typing.Union[
+    "http.cookies.BaseCookie[typing.Any]", typing.Mapping[typing.Any, typing.Any], str
+]
+
 
 def parse_cookie(cookie: typing.Optional[CookieOrHeader]) -> typing.Dict[str, str]:
     """Parse a cookie or header into a cookie mapping."""
@@ -22,7 +25,9 @@ def parse_cookie(cookie: typing.Optional[CookieOrHeader]) -> typing.Dict[str, st
     if isinstance(cookie, str):
         cookie = http.cookies.SimpleCookie(cookie)
 
-    return {str(k): v.value if isinstance(v, http.cookies.Morsel) else str(v) for k, v in cookie.items()}
+    return {
+        str(k): v.value if isinstance(v, http.cookies.Morsel) else str(v) for k, v in cookie.items()
+    }
 
 
 class BaseClient(abc.ABC):
@@ -105,7 +110,7 @@ class BaseClient(abc.ABC):
                 data = await response.json()
 
         # TODO: Implement setting data to cache here
-        
+
         return data
 
     @property

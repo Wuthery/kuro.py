@@ -19,11 +19,15 @@ class WebAuthClient(base.BaseClient):
     async def _send_sms_code(self, number: str, *, mmt_result: None = ...) -> bool: ...
 
     @typing.overload
-    async def _send_sms_code(self, number: str, *, mmt_result: models.MMTResult = ...) -> typing.Literal[True]: ...
+    async def _send_sms_code(
+        self, number: str, *, mmt_result: models.MMTResult = ...
+    ) -> typing.Literal[True]: ...
 
-    async def _send_sms_code(self, number: str, *, mmt_result: models.MMTResult | None = None) -> bool:
+    async def _send_sms_code(
+        self, number: str, *, mmt_result: models.MMTResult | None = None
+    ) -> bool:
         """Send SMS code to phone number.
-        
+
         Args:
             number (str): Chinese phone number.
             mmt_result (models.MMTResult, optional): MMT result with solved captcha.
@@ -32,12 +36,9 @@ class WebAuthClient(base.BaseClient):
         """
         data = {
             "mobile": number if not number.startswith("+86") else number[3:],
-            "geeTestData": mmt_result.model_dump() if mmt_result else ""
+            "geeTestData": mmt_result.model_dump() if mmt_result else "",
         }
-        rsp = await self.request(
-            routes.GET_SMS_CODE.get_url(),
-            data=data
-        )
+        rsp = await self.request(routes.GET_SMS_CODE.get_url(), data=data)
 
         if not rsp["success"]:
             errors.raise_from_data(rsp)
@@ -55,10 +56,7 @@ class WebAuthClient(base.BaseClient):
         Returns:
             models.LoginResult: Login result.
         """
-        data = {
-            "mobile": number if not number.startswith("+86") else number[3:],
-            "code": code
-        }
+        data = {"mobile": number if not number.startswith("+86") else number[3:], "code": code}
         rsp = await self.request(routes.WEB_LOGIN.get_url(), data=data)
 
         if not rsp["success"]:

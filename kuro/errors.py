@@ -32,7 +32,7 @@ RETCODES: typing.Mapping[str, int] = {
 
 ERROR_TRANSLATIONS: typing.Mapping[int, str] = {
     0: "Unknown error occurred when requesting the API",
-    1: "System error"
+    1: "System error",
 }
 """English error messages translated from Kuro.py's custom error codes."""
 
