@@ -7,6 +7,7 @@ import logging
 import typing
 
 import aiohttp
+import aiohttp.typedefs
 import yarl
 
 from ... import types
@@ -58,7 +59,7 @@ class BaseClient(abc.ABC):
         *,
         params: typing.Mapping[str, typing.Any] | None = None,
         data: typing.Any = None,
-        **kwargs: typing.Any,
+        **_: typing.Any,
     ) -> None:
         """Perform an action before a request.
 
