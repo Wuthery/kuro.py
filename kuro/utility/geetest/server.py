@@ -1,5 +1,7 @@
 """Simple geetest server implementation for solving captcha and entering data."""
 
+from __future__ import annotations
+
 import asyncio
 import typing
 import webbrowser
@@ -7,9 +9,11 @@ import webbrowser
 import aiohttp
 from aiohttp import web
 
-from ... import types
 from ...models import MMTResult
 from .utility import lang_to_geetest_lang
+
+if typing.TYPE_CHECKING:
+    from ... import types
 
 __all__ = ["PAGES", "enter_code", "launch_server", "solve_geetest"]
 
@@ -96,13 +100,13 @@ async def launch_server(
     future: asyncio.Future[typing.Any] = asyncio.Future()
 
     @routes.get("/")
-    async def index(request: web.Request) -> web.StreamResponse:
+    async def index(_: web.Request) -> web.StreamResponse:  # noqa: RUF029
         body = PAGES[page]
-        body = body.replace("{lang}", lang or "en")
+        body = body.format(lang=lang or "en")
         return web.Response(body=body, content_type="text/html")
 
     @routes.get("/gt.js")
-    async def gt(request: web.Request) -> web.StreamResponse:
+    async def gt(_: web.Request) -> web.StreamResponse:
         async with aiohttp.ClientSession() as session:
             r = await session.get(GT_URL)
             content = await r.read()
@@ -140,14 +144,14 @@ async def launch_server(
 
 async def solve_geetest(
     *,
-    lang: str = types.Lang,
+    lang: types.Lang,
     port: int = 5000,
 ) -> MMTResult:
     """Start a web server and manually solve geetest captcha."""
-    lang = lang_to_geetest_lang(lang)
+    geetest_lang = lang_to_geetest_lang(lang)
     return await launch_server(
         "captcha",
-        lang=lang,
+        lang=geetest_lang,
         port=port,
     )
 
