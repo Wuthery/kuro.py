@@ -3,7 +3,7 @@
 import typing
 
 
-class KuroException(Exception):
+class KuroError(Exception):
     """Base exception class."""
 
     retcode: int = 0
@@ -39,4 +39,4 @@ ERROR_TRANSLATIONS: typing.Mapping[int, str] = {
 
 def raise_from_data(data: typing.Mapping[str, typing.Any]) -> None:
     """Raise an exception from API data."""
-    raise KuroException(data)
+    raise KuroError(data)
