@@ -97,15 +97,18 @@ class BaseClient(abc.ABC):
 
         await self._request_hook(method, url, params=params, data=data, headers=headers, **kwargs)
 
-        async with aiohttp.ClientSession() as session, session.request(
-            method,
-            url,
-            params=params,
-            data=data,
-            headers=headers,
-            cookies=self.cookies,
-            **kwargs,
-        ) as response:
+        async with (
+            aiohttp.ClientSession() as session,
+            session.request(
+                method,
+                url,
+                params=params,
+                data=data,
+                headers=headers,
+                cookies=self.cookies,
+                **kwargs,
+            ) as response,
+        ):
             data = await response.json()
 
         # TODO: Implement setting data to cache here
