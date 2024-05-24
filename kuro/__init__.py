@@ -6,6 +6,7 @@ Source Code: https://github.com/Wuthery/kuro.py
 from . import models, utility
 from .client import *
 from .constants import *
+from .errors import *
 from .types import *
 
 __version__ = "0.1.0"
