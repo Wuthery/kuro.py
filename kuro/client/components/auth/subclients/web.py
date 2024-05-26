@@ -34,7 +34,7 @@ class WebAuthClient(base.BaseClient):
         """
         data = {
             "mobile": number if not number.startswith("+86") else number[3:],
-            "geeTestData": mmt_result.model_dump_json() if mmt_result else ""
+            "geeTestData": mmt_result.model_dump_json() if mmt_result else "",
         }
         rsp = await self.request(routes.GET_SMS_CODE.get_url(), data=data, headers={"Source": "h5"})
 
