@@ -5,7 +5,6 @@ dependencies = [
 ]
 description = "Async API wrapper for KuroBBS written in Python."
 name = "kuro"
-version = "0.1.0"
 requires-python = ">=3.10"
 
 [tool.poetry]
@@ -16,7 +15,7 @@ description = "Async API wrapper for KuroBBS written in Python."
 documentation = "https://github.com/Wuthery/kuro.py"
 homepage = "https://github.com/Wuthery/kuro.py"
 keywords = ["kuro", "wuwa", "api", "wraper", "kurobbs"]
-license = "GNU"
+license = "GPL-3.0"
 maintainers = [
   "JokelBaf <jokelbaf@gmail.com>",
 ]
