@@ -102,7 +102,7 @@ async def launch_server(
     @routes.get("/")
     async def index(_: web.Request) -> web.StreamResponse:  # noqa: RUF029
         body = PAGES[page]
-        body = body.format(lang=lang or "en")
+        body = body.replace("{lang}", lang or "en")  # noqa: RUF027
         return web.Response(body=body, content_type="text/html")
 
     @routes.get("/gt.js")
