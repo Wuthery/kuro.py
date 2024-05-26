@@ -50,6 +50,7 @@ select = [
 
 [lint.per-file-ignores]
 "**/__init__.py" = ["F401", "F403"]
+"test.py" = ["D", "T201"]
 
 [lint.flake8-type-checking]
 quote-annotations = true
