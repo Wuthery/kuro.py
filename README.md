@@ -10,10 +10,10 @@ git clone https://github.com/Wuthery/kuro.py
 
 # Install the dependencies
 cd kuro.py
-poetry install --with dev --no-root
+poetry install --with dev
 
 # If you want to run the tests locally
-poetry install --with test --no-root
+poetry install --with test
 
 # Install pre-commit
 pre-commit install
