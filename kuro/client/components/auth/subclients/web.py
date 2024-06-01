@@ -26,11 +26,11 @@ class WebAuthClient(base.BaseClient):
         """Send SMS code to phone number.
 
         Args:
-            number (str): Chinese phone number.
-            mmt_result (models.MMTResult, optional): MMT result with solved captcha.
+            number: Chinese phone number.
+            mmt_result: MMT result with solved captcha.
 
         Returns:
-            bool: Whether the SMS code is sent successfully. False means geetest was triggered.
+            True if SMS code was sent successfully. False means geetest was triggered.
         """
         data = {
             "mobile": number if not number.startswith("+86") else number[3:],
@@ -47,11 +47,11 @@ class WebAuthClient(base.BaseClient):
         """Login with a phone number and OTP code.
 
         Args:
-            number (str): Chinese phone number.
-            code (str): OTP code.
+            number: Chinese phone number.
+            code: OTP code.
 
         Returns:
-            models.LoginResult: Login result.
+            Login result.
         """
         data = {"mobile": number if not number.startswith("+86") else number[3:], "code": code}
         rsp = await self.request(routes.WEB_LOGIN.get_url(), data=data, headers={"Source": "h5"})
