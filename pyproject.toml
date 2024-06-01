@@ -20,7 +20,9 @@ maintainers = [
   "JokelBaf <jokelbaf@gmail.com>",
 ]
 name = "kuro"
-package-mode = false
+packages = [
+  {include = "kuro"},
+]
 readme = "README.md"
 repository = "https://github.com/Wuthery/kuro.py"
 version = "0.1.0"
