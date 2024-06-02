@@ -25,11 +25,11 @@ class WebAuthClient(base.BaseClient):
     ) -> bool:
         """Send SMS code to phone number.
 
-        Args:
-            number: Chinese phone number.
+        ### Args:
+            number: Chinese phone number. With or without regional prefix (`+86`).
             mmt_result: MMT result with solved captcha.
 
-        Returns:
+        ### Returns:
             True if SMS code was sent successfully. False means geetest was triggered.
         """
         data = {
@@ -46,11 +46,11 @@ class WebAuthClient(base.BaseClient):
     async def _web_login(self, number: str, code: str) -> models.LoginResult:
         """Login with a phone number and OTP code.
 
-        Args:
-            number: Chinese phone number.
+        ### Args:
+            number: Chinese phone number. With or without regional prefix (`+86`).
             code: OTP code.
 
-        Returns:
+        ### Returns:
             Login result.
         """
         data = {"mobile": number if not number.startswith("+86") else number[3:], "code": code}
