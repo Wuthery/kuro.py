@@ -54,6 +54,7 @@ select = [
 
 [lint.flake8-type-checking]
 quote-annotations = true
+runtime-evaluated-base-classes = ["kuro.models.base.APIModel"]
 
 [lint.pydocstyle]
 convention = "google"
