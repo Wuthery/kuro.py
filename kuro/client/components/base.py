@@ -1,5 +1,7 @@
 """Base client."""
 
+from __future__ import annotations
+
 import abc
 import http.cookies
 import json
@@ -7,10 +9,14 @@ import logging
 import typing
 
 import aiohttp
-import aiohttp.typedefs
 import yarl
+from aiohttp_client_cache.backends.sqlite import SQLiteBackend
+from aiohttp_client_cache.session import CachedSession
 
 from ... import types
+
+if typing.TYPE_CHECKING:
+    import aiohttp.typedefs
 
 CookieOrHeader = typing.Union[
     "http.cookies.BaseCookie[typing.Any]", typing.Mapping[typing.Any, typing.Any], str
@@ -52,7 +58,7 @@ class BaseClient(abc.ABC):
         self.debug = debug
         """Whether to log debug information."""
 
-    async def _request_hook(
+    def _request_hook(
         self,
         method: str,
         url: aiohttp.typedefs.StrOrURL,
@@ -86,15 +92,14 @@ class BaseClient(abc.ABC):
         **kwargs: typing.Any,
     ) -> typing.Mapping[str, typing.Any]:
         """Make a request to the API. All requests the library makes go through this method."""
-        # TODO: Implement getting data from cache here
-
         if method is None:
             method = "POST" if data else "GET"
 
-        await self._request_hook(method, url, params=params, data=data, headers=headers, **kwargs)
+        self._request_hook(method, url, params=params, data=data, headers=headers, **kwargs)
 
+        cache = SQLiteBackend(cache_name=".cache/kuro-py")
         async with (
-            aiohttp.ClientSession() as session,
+            CachedSession(cache=cache) as session,
             session.request(
                 method,
                 url,
@@ -106,8 +111,6 @@ class BaseClient(abc.ABC):
             ) as response,
         ):
             data = await response.json()
-
-        # TODO: Implement setting data to cache here
 
         return data
 
