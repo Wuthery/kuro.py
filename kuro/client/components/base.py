@@ -88,10 +88,6 @@ class BaseClient(abc.ABC):
         """Make a request to the API. All requests the library makes go through this method."""
         # TODO: Implement getting data from cache here
 
-        if "json" in kwargs:
-            msg = "Use data instead of json in request."
-            raise TypeError(msg)
-
         if method is None:
             method = "POST" if data else "GET"
 

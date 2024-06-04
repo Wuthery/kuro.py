@@ -3,7 +3,7 @@
 Source Code: https://github.com/Wuthery/kuro.py
 """
 
-from . import models, utility
+from . import models, utility, filters
 from .client import *
 from .constants import *
 from .errors import *

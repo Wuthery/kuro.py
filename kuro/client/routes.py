@@ -2,7 +2,7 @@
 
 import yarl
 
-__all__ = ["GET_SMS_CODE", "WEB_LOGIN", "Route"]
+__all__ = ["GACHA_RECORD_URL", "GET_SMS_CODE", "WEB_LOGIN", "Route"]
 
 
 class Route:
@@ -17,6 +17,8 @@ class Route:
         """Get the route URL."""
         return self.url
 
+
+GACHA_RECORD_URL = Route("https://gmserver-api.aki-game2.net/gacha/record/query")
 
 GET_SMS_CODE = Route("https://api.kurobbs.com/user/getSmsCodeForH5")
 
