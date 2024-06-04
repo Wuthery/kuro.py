@@ -2,11 +2,10 @@
 
 import typing
 
-from ... import errors
-from ... import types
-from . import base
+from ... import errors, types
 from ...models import GachaRecord
 from ..routes import GACHA_RECORD_URL
+from . import base
 
 __all__ = ["GachaClient"]
 

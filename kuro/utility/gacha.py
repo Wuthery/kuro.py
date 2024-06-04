@@ -1,7 +1,7 @@
 """Gacha utility."""
 
 import typing
-from urllib.parse import urlparse, parse_qs
+from urllib.parse import parse_qs, urlparse
 
 from .. import types
 
@@ -24,7 +24,7 @@ def parse_gacha_url(url: str) -> typing.Mapping[str, typing.Any]:
     Returns:
         Parsed mapping that can be used in `client.get_gacha_records` method.
     """
-    parsed_url = urlparse(url.replace('#', ''))
+    parsed_url = urlparse(url.replace("#", ""))
     query_params = parse_qs(parsed_url.query)
     return {
         "player_id": query_params["player_id"][0],
