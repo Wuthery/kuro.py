@@ -4,5 +4,7 @@
   "ignoreDeps": ["pyenv"],
   "extends": [
     "config:recommended"
-  ]
+  ],
+  "automerge": true,
+  "automergeStrategy": "squash",
 }
