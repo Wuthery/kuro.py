@@ -3,7 +3,7 @@
 import typing
 
 from ... import errors, types
-from ...models import GachaRecord
+from ...models import GachaCharacter, GachaWeapon
 from ..routes import GACHA_RECORD_URL
 from . import base
 
@@ -21,7 +21,7 @@ class GachaClient(base.BaseClient):
         banner: types.WuWaBanner,
         server: types.WuWaServer,
         lang: types.Lang | None = None,
-    ) -> typing.Sequence[GachaRecord]:
+    ) -> typing.Sequence[GachaWeapon | GachaCharacter]:
         """Get gacha records.
 
         ### Example:
@@ -54,4 +54,7 @@ class GachaClient(base.BaseClient):
         if rsp["code"] != 0:
             errors.raise_from_data(rsp)
 
-        return [GachaRecord(**record) for record in rsp["data"]]
+        return [
+            GachaWeapon(**record) if record["resourceId"] >= 100000 else GachaCharacter(**record)
+            for record in rsp["data"]
+        ]

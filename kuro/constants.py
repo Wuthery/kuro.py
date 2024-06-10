@@ -18,3 +18,6 @@ GEETEST_LANGS: typing.Mapping[types.Lang, str] = {
     types.Lang.SPANISH: "es",
 }
 """Geetest languages."""
+
+WUTHERY_CDN: str = "https://nogatekeep.wuthery.com"
+"""Wuthery CDN URL."""
