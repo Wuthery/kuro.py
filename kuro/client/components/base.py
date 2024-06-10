@@ -8,10 +8,12 @@ import json
 import logging
 import typing
 
-import aiocache
 import aiohttp
 import aiohttp.typedefs
 import yarl
+
+if typing.TYPE_CHECKING:
+    import aiocache
 
 from ... import types
 
@@ -53,8 +55,8 @@ class BaseClient(abc.ABC):
         self.cookies = parse_cookie(cookies) if cookies else {}
         self.lang = lang
         """Language to use for the API."""
-        self.cache = cache or aiocache.SimpleMemoryCache()
-        """Cache to store requests."""
+        self.cache = cache
+        """Cache to store responses."""
         self.debug = debug
         """Whether to log debug information."""
 
@@ -99,10 +101,8 @@ class BaseClient(abc.ABC):
         self._request_hook(method, url, params=params, data=data, headers=headers, **kwargs)
         key = self._gen_cache_key(url, method, params, data, headers, kwargs)
 
-        if use_cache and self.cache:
-            cached = await self.cache.get(key)
-            if cached:
-                return cached
+        if use_cache and self.cache and (cached := await self.cache.get(key)):
+            return cached
 
         async with (
             aiohttp.ClientSession() as session,
@@ -117,7 +117,7 @@ class BaseClient(abc.ABC):
             ) as response,
         ):
             data = await response.json()
-            if use_cache:
+            if use_cache and self.cache:
                 await self.cache.set(key, data)
 
         return data
