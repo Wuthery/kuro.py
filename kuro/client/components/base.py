@@ -9,14 +9,13 @@ import logging
 import typing
 
 import aiohttp
+import aiohttp.typedefs
 import yarl
-from aiohttp_client_cache.backends.sqlite import SQLiteBackend
-from aiohttp_client_cache.session import CachedSession
-
-from ... import types
 
 if typing.TYPE_CHECKING:
-    import aiohttp.typedefs
+    import aiocache
+
+from ... import types
 
 CookieOrHeader = typing.Union[
     "http.cookies.BaseCookie[typing.Any]", typing.Mapping[typing.Any, typing.Any], str
@@ -50,11 +49,14 @@ class BaseClient(abc.ABC):
         cookies: CookieOrHeader | None = None,
         *,
         lang: types.Lang = types.Lang.ENGLISH,
+        cache: aiocache.Cache | None = None,
         debug: bool = False,
     ) -> None:
         self.cookies = parse_cookie(cookies) if cookies else {}
         self.lang = lang
         """Language to use for the API."""
+        self.cache = cache
+        """Cache to store responses."""
         self.debug = debug
         """Whether to log debug information."""
 
@@ -89,6 +91,7 @@ class BaseClient(abc.ABC):
         params: typing.Mapping[str, typing.Any] | None = None,
         data: typing.Any = None,
         headers: aiohttp.typedefs.LooseHeaders | None = None,
+        use_cache: bool = True,
         **kwargs: typing.Any,
     ) -> typing.Mapping[str, typing.Any]:
         """Make a request to the API. All requests the library makes go through this method."""
@@ -96,10 +99,13 @@ class BaseClient(abc.ABC):
             method = "POST" if data else "GET"
 
         self._request_hook(method, url, params=params, data=data, headers=headers, **kwargs)
+        key = self._gen_cache_key(url, method, params, data, headers, kwargs)
 
-        cache = SQLiteBackend(cache_name=".cache/kuro-py")
+        if use_cache and self.cache and (cached := await self.cache.get(key)):
+            return cached
+
         async with (
-            CachedSession(cache=cache) as session,
+            aiohttp.ClientSession() as session,
             session.request(
                 method,
                 url,
@@ -111,8 +117,21 @@ class BaseClient(abc.ABC):
             ) as response,
         ):
             data = await response.json()
+            if use_cache and self.cache:
+                await self.cache.set(key, data)
 
         return data
+
+    def _gen_cache_key(
+        self,
+        url: aiohttp.typedefs.StrOrURL,
+        method: str | None = None,
+        params: typing.Mapping[str, typing.Any] | None = None,
+        data: typing.Any = None,
+        headers: aiohttp.typedefs.LooseHeaders | None = None,
+        kwargs: typing.Any = None,
+    ) -> str:
+        return f"{url}_{method}_{params}_{data}_{headers}_{self.cookies}_{kwargs}"
 
     @property
     def cookies(self) -> typing.MutableMapping[str, str]:
