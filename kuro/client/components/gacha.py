@@ -55,7 +55,8 @@ class GachaClient(base.BaseClient):
             errors.raise_from_data(rsp)
 
         return [
-            GachaWeapon(**{**record, "cardPoolType": banner}) if record["resourceId"] >= 100000
+            GachaWeapon(**{**record, "cardPoolType": banner})
+            if record["resourceId"] >= 100000
             else GachaCharacter(**{**record, "cardPoolType": banner})
             for record in rsp["data"]
         ]
