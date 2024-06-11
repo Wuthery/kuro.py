@@ -1,6 +1,6 @@
 """Main client for requesting API endpoints."""
 
-from .components import auth, gacha
+from kuro.client.components import auth, gacha
 
 __all__ = ["Client"]
 

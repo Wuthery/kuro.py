@@ -3,7 +3,7 @@
 import typing
 from urllib.parse import parse_qs, urlparse
 
-from .. import types
+from kuro import types
 
 
 def parse_gacha_url(url: str) -> typing.Mapping[str, typing.Any]:

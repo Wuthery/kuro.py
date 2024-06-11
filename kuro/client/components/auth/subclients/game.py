@@ -1,6 +1,6 @@
 """Game auth client."""
 
-from ... import base
+from kuro.client.components import base
 
 __all__ = ["GameAuthClient"]
 

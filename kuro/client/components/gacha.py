@@ -2,10 +2,10 @@
 
 import typing
 
-from ... import errors, types
-from ...models import GachaCharacter, GachaWeapon
-from ..routes import GACHA_RECORD_URL
-from . import base
+from kuro import errors, types
+from kuro.client.components import base
+from kuro.client.routes import GACHA_RECORD_URL
+from kuro.models import GachaCharacter, GachaWeapon
 
 __all__ = ["GachaClient"]
 

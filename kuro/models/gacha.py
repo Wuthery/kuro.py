@@ -1,13 +1,12 @@
 """Gacha models."""
 
-import datetime
+import datetime  # noqa: TCH003
 import enum
 
 import pydantic
 
-from .. import constants, types
-from .assets import IconRoleHead, IconWeapon
-from .base import APIModel
+from kuro import constants, types
+from kuro.models import APIModel, IconRoleHead, IconWeapon
 
 __all__ = ["GachaCharacter", "GachaItemType", "GachaRecord", "GachaWeapon"]
 

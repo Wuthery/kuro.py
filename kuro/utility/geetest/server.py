@@ -9,11 +9,11 @@ import webbrowser
 import aiohttp
 from aiohttp import web
 
-from ...models import MMTResult
-from .utility import lang_to_geetest_lang
+from kuro.models import MMTResult
+from kuro.utility import lang_to_geetest_lang
 
 if typing.TYPE_CHECKING:
-    from ... import types
+    from kuro import types
 
 __all__ = ["PAGES", "enter_code", "launch_server", "solve_geetest"]
 

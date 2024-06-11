@@ -15,7 +15,7 @@ import yarl
 if typing.TYPE_CHECKING:
     import aiocache
 
-from ... import types
+from kuro import types
 
 CookieOrHeader = typing.Union[
     "http.cookies.BaseCookie[typing.Any]", typing.Mapping[typing.Any, typing.Any], str
