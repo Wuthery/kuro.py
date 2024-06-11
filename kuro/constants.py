@@ -2,7 +2,7 @@
 
 import typing
 
-from . import types
+from kuro import types
 
 __all__ = ["GEETEST_LANGS"]
 

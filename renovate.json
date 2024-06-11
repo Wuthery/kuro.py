@@ -6,5 +6,5 @@
     "config:recommended"
   ],
   "automerge": true,
-  "automergeStrategy": "squash",
+  "automergeStrategy": "squash"
 }

@@ -1,6 +1,6 @@
 """Geetest utility functions."""
 
-from ... import constants, types
+from kuro import constants, types
 
 __all__ = ["lang_to_geetest_lang"]
 

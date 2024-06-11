@@ -2,9 +2,9 @@
 
 import typing
 
-from ..... import errors, models
-from .... import routes
-from ... import base
+from kuro import errors, models
+from kuro.client import routes
+from kuro.client.components import base
 
 __all__ = ["WebAuthClient"]
 
