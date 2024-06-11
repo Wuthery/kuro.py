@@ -887,7 +887,10 @@ files = [
 idna = ">=2.0"
 multidict = ">=4.0"
 
+[extras]
+caching = []
+
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "664ae29e8b4654e3f3c1c735ae42f2be67e6a5aab839ac32fda44b230689e450"
+content-hash = "da0fefb4b4f9b58dadd730dd85599d76e409fb25dacce8a4019899567a6cc9b7"
