@@ -9,9 +9,8 @@ import webbrowser
 import aiohttp
 from aiohttp import web
 
-from kuro.models import MMTResult
-
-from .utility import lang_to_geetest_lang
+from kuro import models
+from kuro.utility import geetest
 
 if typing.TYPE_CHECKING:
     from kuro import types
@@ -53,7 +52,7 @@ PAGE = """
 GT_URL = "https://static.geetest.com/v4/gt4.js"
 
 
-async def launch_server(*, lang: str, port: int = 5000) -> MMTResult:
+async def launch_server(*, lang: str, port: int = 5000) -> models.MMTResult:
     """Create and run a web server to solve captcha."""
     routes = web.RouteTableDef()
     future: asyncio.Future[typing.Any] = asyncio.Future()
@@ -74,7 +73,7 @@ async def launch_server(*, lang: str, port: int = 5000) -> MMTResult:
     @routes.post("/send-data")
     async def send_data_endpoint(request: web.Request) -> web.Response:
         result = await request.json()
-        future.set_result(MMTResult(**result))
+        future.set_result(models.MMTResult(**result))
         return web.Response(status=204)
 
     app = web.Application()
@@ -99,7 +98,7 @@ async def launch_server(*, lang: str, port: int = 5000) -> MMTResult:
     return data
 
 
-async def solve_geetest(*, lang: types.Lang, port: int = 5000) -> MMTResult:
+async def solve_geetest(*, lang: types.Lang, port: int = 5000) -> models.MMTResult:
     """Start a web server and manually solve geetest captcha."""
-    geetest_lang = lang_to_geetest_lang(lang)
+    geetest_lang = geetest.lang_to_geetest_lang(lang)
     return await launch_server(lang=geetest_lang, port=port)

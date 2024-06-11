@@ -2,6 +2,8 @@
 
 import pydantic
 
+__all__ = ["IconRoleHead", "IconWeapon"]
+
 
 class IconRoleHead(pydantic.BaseModel):
     """Role head icon model."""

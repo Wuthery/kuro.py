@@ -2,10 +2,9 @@
 
 import typing
 
-from kuro import errors, types
+from kuro import errors, models, types
+from kuro.client import routes
 from kuro.client.components import base
-from kuro.client.routes import GACHA_RECORD_URL
-from kuro.models import GachaCharacter, GachaWeapon
 
 __all__ = ["GachaClient"]
 
@@ -21,7 +20,7 @@ class GachaClient(base.BaseClient):
         banner: types.WuWaBanner,
         server: types.WuWaServer,
         lang: types.Lang | None = None,
-    ) -> typing.Sequence[GachaWeapon | GachaCharacter]:
+    ) -> typing.Sequence[models.GachaWeapon | models.GachaCharacter]:
         """Get gacha records.
 
         ### Example:
@@ -49,14 +48,14 @@ class GachaClient(base.BaseClient):
             "serverId": str(server),
             "cardPoolId": "",
         }
-        rsp = await self.request(GACHA_RECORD_URL.get_url(), method="POST", json=body)
+        rsp = await self.request(routes.GACHA_RECORD_URL.get_url(), method="POST", json=body)
 
         if rsp["code"] != 0:
             errors.raise_from_data(rsp)
 
         return [
-            GachaWeapon(**{**record, "cardPoolType": banner})
+            models.GachaWeapon(**{**record, "cardPoolType": banner})
             if record["resourceId"] >= 100000
-            else GachaCharacter(**{**record, "cardPoolType": banner})
+            else models.GachaCharacter(**{**record, "cardPoolType": banner})
             for record in rsp["data"]
         ]

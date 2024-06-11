@@ -6,9 +6,7 @@ import enum
 import pydantic
 
 from kuro import constants, types
-
-from .assets import IconRoleHead, IconWeapon
-from .base import APIModel
+from kuro.models import assets, base
 
 __all__ = ["GachaCharacter", "GachaItemType", "GachaRecord", "GachaWeapon"]
 
@@ -22,7 +20,7 @@ class GachaItemType(enum.IntEnum):
     """Weapon."""
 
 
-class GachaRecord(APIModel):
+class GachaRecord(base.APIModel):
     """Gacha record model."""
 
     banner: types.WuWaBanner = pydantic.Field(alias="cardPoolType")
@@ -50,9 +48,9 @@ class GachaCharacter(GachaRecord):
     """Gacha character model."""
 
     @property
-    def icon(self) -> IconRoleHead:
+    def icon(self) -> assets.IconRoleHead:
         """Character icon."""
-        return IconRoleHead(
+        return assets.IconRoleHead(
             url_150=(
                 f"{constants.WUTHERY_CDN}/d/GameData/IDFiedResources/"
                 f"Common/Image/IconRoleHead150/{self.resource_id}.png"
@@ -88,9 +86,9 @@ class GachaWeapon(GachaRecord):
     """Gacha weapon model."""
 
     @property
-    def icon(self) -> IconWeapon:
+    def icon(self) -> assets.IconWeapon:
         """Weapon icon."""
-        return IconWeapon(
+        return assets.IconWeapon(
             url_80=(
                 f"{constants.WUTHERY_CDN}/d/GameData/UIResources/"
                 f"common/image/iconweapon80/t_iconweapon80{self.resource_id}_ui.png"

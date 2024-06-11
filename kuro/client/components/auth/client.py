@@ -4,19 +4,19 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from kuro.client.components.auth.subclients import GameAuthClient, WebAuthClient
+from kuro.client.components.auth import subclients
 from kuro.utility import geetest
 
 if TYPE_CHECKING:
-    from kuro.models import LoginResult
+    from kuro import models
 
 __all__ = ["AuthClient"]
 
 
-class AuthClient(GameAuthClient, WebAuthClient):
+class AuthClient(subclients.GameAuthClient, subclients.WebAuthClient):
     """Auth client."""
 
-    async def login(self, number: str, *, port: int = 5000) -> LoginResult:
+    async def login(self, number: str, *, port: int = 5000) -> models.LoginResult:
         """Login with a phone number.
 
         ### Args:

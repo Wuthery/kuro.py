@@ -2,10 +2,9 @@
 
 import typing
 
-from kuro import errors
+from kuro import errors, models
 from kuro.client import routes
 from kuro.client.components import base
-from kuro.models import LoginResult, MMTResult
 
 __all__ = ["WebAuthClient"]
 
@@ -18,11 +17,11 @@ class WebAuthClient(base.BaseClient):
 
     @typing.overload
     async def _send_sms_code(
-        self, number: str, *, mmt_result: MMTResult = ...
+        self, number: str, *, mmt_result: models.MMTResult = ...
     ) -> typing.Literal[True]: ...
 
     async def _send_sms_code(
-        self, number: str, *, mmt_result: MMTResult | None = None
+        self, number: str, *, mmt_result: models.MMTResult | None = None
     ) -> bool:
         """Send SMS code to phone number.
 
@@ -44,7 +43,7 @@ class WebAuthClient(base.BaseClient):
 
         return not rsp["data"]["geeTest"]
 
-    async def _web_login(self, number: str, code: str) -> LoginResult:
+    async def _web_login(self, number: str, code: str) -> models.LoginResult:
         """Login with a phone number and OTP code.
 
         ### Args:
@@ -60,4 +59,4 @@ class WebAuthClient(base.BaseClient):
         if not rsp["success"]:
             errors.raise_from_data(rsp)
 
-        return LoginResult(**rsp["data"])
+        return models.LoginResult(**rsp["data"])

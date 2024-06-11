@@ -2,12 +2,12 @@
 
 import pydantic
 
-from .base import APIModel
+from kuro.models import base
 
 __all__ = ["LoginResult", "MMTResult"]
 
 
-class LoginResult(APIModel):
+class LoginResult(base.APIModel):
     """Login result returned by `client.login`."""
 
     enable_child_mode: bool
