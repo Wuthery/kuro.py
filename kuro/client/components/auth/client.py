@@ -31,5 +31,5 @@ class AuthClient(GameAuthClient, WebAuthClient):
             mmt_result = await geetest.server.solve_geetest(lang=self.lang, port=port)
             await self._send_sms_code(number, mmt_result=mmt_result)
 
-        code = await geetest.server.enter_code(port=port)
+        code = input("Enter OTP code: ")
         return await self._web_login(number, code)
