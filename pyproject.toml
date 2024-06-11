@@ -4,7 +4,7 @@ dependencies = [
   "aiohttp>=3.8.4",
 ]
 description = "Async API wrapper for KuroBBS written in Python."
-name = "kuro"
+name = "kuro.py"
 requires-python = ">=3.10"
 
 [project.optional-dependencies]
@@ -22,7 +22,7 @@ license = "GPL-3.0"
 maintainers = [
   "JokelBaf <jokelbaf@gmail.com>",
 ]
-name = "kuro"
+name = "kuro.py"
 packages = [
   {include = "kuro"},
 ]
