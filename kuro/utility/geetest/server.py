@@ -10,7 +10,8 @@ import aiohttp
 from aiohttp import web
 
 from kuro.models import MMTResult
-from kuro.utility import lang_to_geetest_lang
+
+from .utility import lang_to_geetest_lang
 
 if typing.TYPE_CHECKING:
     from kuro import types

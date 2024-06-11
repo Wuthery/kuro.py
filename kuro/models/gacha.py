@@ -6,7 +6,9 @@ import enum
 import pydantic
 
 from kuro import constants, types
-from kuro.models import APIModel, IconRoleHead, IconWeapon
+
+from .assets import IconRoleHead, IconWeapon
+from .base import APIModel
 
 __all__ = ["GachaCharacter", "GachaItemType", "GachaRecord", "GachaWeapon"]
 

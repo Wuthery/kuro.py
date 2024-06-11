@@ -2,7 +2,7 @@
 
 import pydantic
 
-from kuro.models import APIModel
+from .base import APIModel
 
 __all__ = ["LoginResult", "MMTResult"]
 
