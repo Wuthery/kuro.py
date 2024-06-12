@@ -6,7 +6,7 @@ from kuro.models import base
 
 from typing import List
 
-__all__ = ["AnnouncementResult", "AnnouncementLangComponent", "GameAnnouncement"]
+__all__ = ["AnnouncementResult", "AnnouncementLangComponent", "AnnouncementRecord"]
 
 
 class AnnouncementLangComponent(base.APIModel):
