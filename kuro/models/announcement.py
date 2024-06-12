@@ -6,23 +6,23 @@ from kuro.models import base
 
 from typing import List
 
-__all__ = ["AnnouncementResult", "AnnouncementLangComponent", "AnnouncementRecord"]
+__all__ = ["AnnouncementResult", "LocalizedAssetsMap", "LocalizedtextMap"]
 
 
-class AnnouncementLangComponent(base.APIModel):
+class LocalizedAssetsMap(base.APIModel):
     """Languages for componenets"""
 
-    zh_hans: str = pydantic.Field(alias='zh-Hans')
-    zh_hant: str = pydantic.Field(alias='zh-Hant')
-    en: str
-    ja: str
-    ko: str
-    fr: str
-    de: str
-    es: str
+    zh_hans: List[str] = pydantic.Field(alias='zh-Hans')
+    zh_hant: List[str] = pydantic.Field(alias='zh-Hant')
+    en: List[str]
+    ja: List[str]
+    ko: List[str]
+    fr: List[str]
+    de: List[str]
+    es: List[str]
 
 
-class AnnouncementRecord(base.APIModel):
+class LocalizedtextMap(base.APIModel):
     """Game Announcement model.
     {
     ...
@@ -36,11 +36,11 @@ class AnnouncementRecord(base.APIModel):
       "channel": [],
       "whiteList": []
     }
+    this is all for whether the announcement should be shown on webview
 
     for deconstruction 
     https://discord.com/channels/1242463166592585871/1242652304168190026/1250356292946624612
     """
-    # FIX:confirm waht whitelist does
 
     details_url: str = pydantic.Field(alias="contentPrefix")
     """Url for announcement details."""
@@ -60,16 +60,16 @@ class AnnouncementRecord(base.APIModel):
     """If channel doesnt exist then show."""
     white_list: List = pydantic.Field(alias="whiteList")
     """if whitelist is empty then show if permanent."""
-    title: AnnouncementLangComponent = pydantic.Field(alias="tabTitle")
+    title: LocalizedAssetsMap = pydantic.Field(alias="tabTitle")
     """Title of announcement."""
-    banner: AnnouncementLangComponent = pydantic.Field(alias="tabBanner")
+    banner: LocalizedAssetsMap = pydantic.Field(alias="tabBanner")
     """Banner of announcement."""
 
 
 class AnnouncementResult(base.APIModel):
     """Full Announcement page model."""
 
-    game: List[AnnouncementRecord]
+    game: List[LocalizedtextMap]
     """Game Announcement."""
-    event: List[AnnouncementRecord] = pydantic.Field(alias="game")
+    event: List[LocalizedtextMap] = pydantic.Field(alias="game")
     """Event Announcement"""
