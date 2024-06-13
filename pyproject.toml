@@ -22,6 +22,7 @@ keywords = ["kuro", "wuwa", "api", "wraper", "kurobbs"]
 license = "GPL-3.0"
 maintainers = [
   "JokelBaf <jokelbaf@gmail.com>",
+  "seriaati <seria.ati@gmail.com>",
 ]
 name = "kuro.py"
 packages = [
