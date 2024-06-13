@@ -9,6 +9,7 @@ requires-python = ">=3.10"
 
 [project.optional-dependencies]
 caching = ["aiocache"]
+test = ["pytest", "pytest-asyncio"]
 
 [tool.poetry]
 authors = [
@@ -49,9 +50,15 @@ ruff = "^0.4.5"
 optional = true
 
 [tool.poetry.group.test.dependencies]
-pytest = "^8.2.1"
+pytest = "^8.2.2"
 pytest-asyncio = "^0.23.7"
 
 [build-system]
 build-backend = "poetry.core.masonry.api"
 requires = ["poetry-core"]
+
+[tool.pytest.ini_options]
+addopts = [
+  "--import-mode=importlib",
+]
+asyncio_mode = "auto"
