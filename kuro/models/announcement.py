@@ -4,26 +4,35 @@ import pydantic
 
 from kuro.models import base
 
-from typing import List
+__all__ = ["AnnouncementDetails", "AnnouncementResult", "LocalizedAssetsMap", "LocalizedtextMap"]
 
-__all__ = ["AnnouncementResult", "LocalizedAssetsMap", "LocalizedtextMap"]
+
+class AnnouncementDetails(base.APIModel):
+    """Announcement Details."""
+
+    announcement_id: str = pydantic.Field(alias="noticeId")
+    html_content: str = pydantic.Field(alias="textContent")
+    title: str = pydantic.Field(alias="textTitle")
+    banner: str
 
 
 class LocalizedAssetsMap(base.APIModel):
-    """Languages for componenets"""
+    """Languages for componenets."""
 
-    zh_hans: List[str] = pydantic.Field(alias='zh-Hans')
-    zh_hant: List[str] = pydantic.Field(alias='zh-Hant')
-    en: List[str]
-    ja: List[str]
-    ko: List[str]
-    fr: List[str]
-    de: List[str]
-    es: List[str]
+    zh_hans: list[str] = pydantic.Field(alias="zh-Hans")
+    zh_hant: list[str] = pydantic.Field(alias="zh-Hant")
+    en: list[str]
+    ja: list[str]
+    ko: list[str]
+    fr: list[str]
+    de: list[str]
+    es: list[str]
 
 
 class LocalizedtextMap(base.APIModel):
     """Game Announcement model.
+
+    ```json
     {
     ...
       "red": 1,
@@ -36,16 +45,17 @@ class LocalizedtextMap(base.APIModel):
       "channel": [],
       "whiteList": []
     }
-    this is all for whether the announcement should be shown on webview
+    ```
+    This is all for whether the announcement should be shown on webview, not particularly useful
 
-    for deconstruction 
+    For deconstruction
     https://discord.com/channels/1242463166592585871/1242652304168190026/1250356292946624612
     """
 
     details_url: str = pydantic.Field(alias="contentPrefix")
     """Url for announcement details."""
     red: int
-    """Should announcement be processed.""" # needs more checking
+    """Should announcement be processed."""  # needs more checking
     permanent: int
     """Permanant announcement."""
     id: str
@@ -54,11 +64,11 @@ class LocalizedtextMap(base.APIModel):
     """Unix start time stamp."""
     end_time_ms: int = pydantic.Field(alias="endTimeMs")
     """Unix end time stamp."""
-    platform: List[int]
+    platform: list[int]
     """Platform for announcement to show on."""
-    channel: List
+    channel: list
     """If channel doesnt exist then show."""
-    white_list: List = pydantic.Field(alias="whiteList")
+    white_list: list = pydantic.Field(alias="whiteList")
     """if whitelist is empty then show if permanent."""
     title: LocalizedAssetsMap = pydantic.Field(alias="tabTitle")
     """Title of announcement."""
@@ -69,7 +79,7 @@ class LocalizedtextMap(base.APIModel):
 class AnnouncementResult(base.APIModel):
     """Full Announcement page model."""
 
-    game: List[LocalizedtextMap]
+    game: list[LocalizedtextMap]
     """Game Announcement."""
-    event: List[LocalizedtextMap] = pydantic.Field(alias="game")
+    event: list[LocalizedtextMap] = pydantic.Field(alias="game")
     """Event Announcement"""

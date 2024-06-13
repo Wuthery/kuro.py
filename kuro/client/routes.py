@@ -23,3 +23,11 @@ GACHA_RECORD_URL = Route("https://gmserver-api.aki-game2.net/gacha/record/query"
 GET_SMS_CODE = Route("https://api.kurobbs.com/user/getSmsCodeForH5")
 
 WEB_LOGIN = Route("https://api.kurobbs.com/user/loginForH5")
+
+GAME_ANNOUNCEMENTS = Route(
+    "https://aki-gm-resources-back.aki-game.net/gamenotice/G153/6eb2a235b30d05efd77bedb5cf60999e/notice.json"
+)
+
+GAME_ANNOUNCEMENT_DETAILS = Route(
+    "https://aki-gm-resources-back.aki-game.net/gamenotice/content/G153/6eb2a235b30d05efd77bedb5cf60999e/"
+)
