@@ -24,7 +24,7 @@ class GachaItemType(enum.IntEnum):
 class GachaRecord(base.APIModel):
     """Gacha record model."""
 
-    banner: types.WuWaBanner = pydantic.Field(alias="cardPoolType")
+    banner: types.WuWaBanner
     """Banner type."""
     resource_id: int
     """Item ID."""
