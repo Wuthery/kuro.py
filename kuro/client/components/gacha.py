@@ -42,7 +42,7 @@ class GachaClient(base.BaseClient):
         """
         body = {
             "playerId": str(player_id),
-            "languageCode": lang.value,
+            "languageCode": lang.value if lang else self.lang.value,
             "cardPoolType": int(banner),
             "recordId": record_id,
             "serverId": server.value,
