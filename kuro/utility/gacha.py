@@ -1,12 +1,11 @@
 """Gacha utility."""
 
-import typing
 from urllib.parse import parse_qs, urlparse
 
-from kuro import types
+from kuro import models, types
 
 
-def parse_gacha_url(url: str) -> typing.Mapping[str, typing.Any]:
+def parse_gacha_url(url: str) -> models.ParsedGachaParams:
     """Parse gacha URL.
 
     Use the function to parse gacha url into a mapping that can be
