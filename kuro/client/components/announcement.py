@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import yarl
 
-from kuro import errors, models, types
+from kuro import models, types
 from kuro.client import routes
 from kuro.client.components import base
 
@@ -21,13 +21,14 @@ class AnnouncementClient(base.BaseClient):
             Game Announcements.
         """
         rsp = await self.request(routes.GAME_ANNOUNCEMENTS.get_url(), method="GET")
-        if rsp["code"] != 0:
-            errors.raise_from_data(rsp)
 
         return models.AnnouncementResult(**rsp)
 
     async def get_game_announcement_details(
-        self, announcement_id: str, lang: types.Lang | None, url: str
+        self,
+        announcement_id: str | None = None,
+        lang: types.Lang | None = None,
+        url: str | None = None,
     ) -> models.AnnouncementDetails:
         """Get game announcement details.
 
@@ -36,7 +37,7 @@ class AnnouncementClient(base.BaseClient):
         ### Example:
         ```python
         for announcement in await client.get_game_announcements().game:
-            print(get_game_announcement_details(announcement.id).title)
+            print(await client.get_game_announcement_details(announcement.id).title)
         # or
         for announcement in await client.get_game_announcements().game:
             print(await client.get_game_announcement_details(announcement.url).title)
@@ -55,16 +56,13 @@ class AnnouncementClient(base.BaseClient):
 
         rsp = None
         if url:
-            rsp = await self.request(yarl.URL(f"{url}/{lang}.json"), method="GET")
+            rsp = await self.request(yarl.URL(f"{url}/{lang.value}.json"), method="GET")
         else:
             rsp = await self.request(
                 routes.GAME_ANNOUNCEMENT_DETAILS.get_url().with_path(
-                    f"{announcement_id}/{lang}.json"
+                    f"{announcement_id}/{lang.value}.json"
                 ),
                 method="GET",
             )
-
-        if rsp["code"] != 0:
-            errors.raise_from_data(rsp)
 
         return models.AnnouncementDetails(**rsp)
