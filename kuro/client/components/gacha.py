@@ -42,10 +42,10 @@ class GachaClient(base.BaseClient):
         """
         body = {
             "playerId": str(player_id),
-            "languageCode": str(lang),
+            "languageCode": lang.value,
             "cardPoolType": int(banner),
             "recordId": record_id,
-            "serverId": str(server),
+            "serverId": server.value,
             "cardPoolId": "",
         }
         rsp = await self.request(routes.GACHA_RECORD_URL.get_url(), method="POST", json=body)
