@@ -2,13 +2,14 @@
 
 import datetime  # noqa: TCH003
 import enum
+import typing
 
 import pydantic
 
 from kuro import constants, types
 from kuro.models import assets, base
 
-__all__ = ["GachaCharacter", "GachaItemType", "GachaRecord", "GachaWeapon"]
+__all__ = ["GachaCharacter", "GachaItemType", "GachaRecord", "GachaWeapon", "ParsedGachaParams"]
 
 
 class GachaItemType(enum.IntEnum):
@@ -102,3 +103,18 @@ class GachaWeapon(GachaRecord):
                 f"common/image/iconweapon/t_iconweapon{self.resource_id}_ui.png"
             ),
         )
+
+
+class ParsedGachaParams(typing.TypedDict):
+    """Parsed gacha parameters."""
+
+    player_id: int
+    """Player ID."""
+    record_id: str
+    """Record ID (Unique to each user)."""
+    banner: types.WuWaBanner
+    """Banner type."""
+    server: types.WuWaServer
+    """Game server."""
+    lang: types.Lang
+    """Language."""
