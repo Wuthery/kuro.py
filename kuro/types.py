@@ -5,7 +5,7 @@ import enum
 __all__ = ["Game", "Lang"]
 
 
-class Game(enum.StrEnum):
+class Game(str, enum.Enum):
     """Kuro game."""
 
     PGR = "pgr"
@@ -15,7 +15,7 @@ class Game(enum.StrEnum):
     """Wuthering Waves"""
 
 
-class Lang(enum.StrEnum):
+class Lang(str, enum.Enum):
     """Languages supported by the API."""
 
     CHINESE_SIMPLIFIED = "zh-Hans"
@@ -28,7 +28,7 @@ class Lang(enum.StrEnum):
     SPANISH = "es"
 
 
-class WuWaServer(enum.StrEnum):
+class WuWaServer(str, enum.Enum):
     """WuWa server."""
 
     AMERICA = "591d6af3a3090d8ea00d8f86cf6d7501"
