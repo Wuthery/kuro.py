@@ -36,12 +36,13 @@ class AnnouncementClient(base.BaseClient):
 
         ### Example:
         ```python
-        for announcement in await client.get_game_announcements().game:
-            print(await client.get_game_announcement_details(announcement.id).title)
-        # or
-        for announcement in await client.get_game_announcements().game:
-            print(await client.get_game_announcement_details(announcement.url).title)
+        game_announcement_list = (await client.get_game_announcements()).game
 
+        for announcement in game_announcement_list:
+            print((await client.get_game_announcement_details(announcement.id)).title)
+        # or
+        for announcement in game_announcement_list:
+            print((await client.get_game_announcement_details(announcement.url)).title)
         ```
 
         ### Args:
@@ -59,9 +60,7 @@ class AnnouncementClient(base.BaseClient):
             rsp = await self.request(yarl.URL(f"{url}/{lang.value}.json"), method="GET")
         else:
             rsp = await self.request(
-                routes.GAME_ANNOUNCEMENT_DETAILS.get_url().with_path(
-                    f"{announcement_id}/{lang.value}.json"
-                ),
+                routes.GAME_ANNOUNCEMENT_DETAILS.get_url() / f"{announcement_id}/{lang.value}.json",
                 method="GET",
             )
 
