@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import yarl
 
-from kuro import models, types
+from kuro import errors, models, types
 from kuro.client import routes
 from kuro.client.components import base
 
@@ -38,9 +38,12 @@ class AnnouncementClient(base.BaseClient):
         ```python
         game_announcement_list = (await client.get_game_announcements()).game
 
+        # Using id
         for announcement in game_announcement_list:
             print((await client.get_game_announcement_details(announcement.id)).title)
+
         # or
+        # Using url
         for announcement in game_announcement_list:
             print((await client.get_game_announcement_details(announcement.url)).title)
         ```
@@ -65,3 +68,108 @@ class AnnouncementClient(base.BaseClient):
             )
 
         return models.AnnouncementDetails(**rsp)
+
+    async def get_kurobbs_announcements(
+        self,
+        amount_posts: int | None = 8,
+    ) -> models.KuroBBSAnnouncementResult:
+        """Get KuroBBS announcement list.
+
+        ### Example:
+        ```python
+        announcementid_list = await client.get_kurobbs_announcements(self, 100)
+        ```
+        ### Args:
+            amount_pages: amount of pages to return
+
+        ### Returns:
+            KuroBBS official announcements list
+        """
+        data = {"gameId": 3, "pageSize": amount_posts}
+        rsp = await self.request(
+            routes.KUROBBS_ANNOUNCEMENT_LIST.get_url(), method="POST", data=data
+        )
+
+        if not rsp["success"]:
+            errors.raise_from_data(rsp)
+
+        return models.KuroBBSAnnouncementResult(**rsp["data"])
+
+    # FIX: endpont doesnt work for me need someone to make it work
+    # async def get_kurobbs_announcement_details(self, announcement_id) -> models.KuroBB:
+    #     """Get KuroBBS announcement item.
+    #
+    #     announcement_list = await client.get_kurobbs_announcements(self, 100)
+    #     announcement_id = announcement_list.post_list[0].post_id
+    #
+    #     kur_announcement_details
+    #
+    #
+    #     """
+
+    async def get_launcher_announcements(
+        self, lang: types.Lang | None = None
+    ) -> models.LauncherAnnouncementList:
+        """Get launcher announcement list.
+
+        ### Example:
+        ```python
+        launcher_announcements = await client.get_launcher_announcements()
+        print(launcher_announcements.guidance.activity.contents[0].content)
+        ```
+        ### Args:
+            lang: Language
+
+        ### Returns:
+            Launcher official announcements list
+
+        """
+        if lang is None:
+            lang = self.lang
+
+        rsp = None
+
+        if lang is types.Lang.CHINESE_SIMPLIFIED:
+            rsp = await self.request(routes.LAUNCHER_ANNOUNCEMENT_LIST_CN.get_url(), method="GET")
+        else:
+            rsp = await self.request(
+                routes.LAUNCHER_ANNOUNCEMENT_LIST_GLOBAL.get_url() / f"{lang.value}.json"
+            )
+
+        return models.LauncherAnnouncementList(**rsp)
+
+    async def get_launcher_announcement_details(
+        self, announcement_id: int, lang: types.Lang | None = None
+    ) -> models.LauncherAnnouncementDetails:
+        """Get Launcher official announcement details.
+
+        Url required as each language has a different article id,
+        so both are required to obtain the data
+
+        ### Example:
+        ```python
+            launcher_announcements = await client.get_launcher_announcements()
+
+            id = launcher_announcements.guidance.activity.contents[0].id
+            lang = launcher_announcements.guidance.activity.contents[0].lang
+
+            result = await client.get_launcher_announcement_details(id, lang)
+        ```
+
+        ### Args:
+            url: url retrieved from get_launcher_announcements
+
+        ### Returns:
+            Launcher announcement details
+
+        """
+        if lang is None:
+            lang = self.lang
+
+        rsp = await self.request(
+            routes.LAUNCHER_ANNOUNCEMENT_DETAILS_GLOBAL.get_url()
+            / f"{lang.value}/article/{announcement_id}.json",
+            method="GET",
+        )
+
+        return models.LauncherAnnouncementDetails(**rsp)

@@ -31,3 +31,17 @@ GAME_ANNOUNCEMENTS = Route(
 GAME_ANNOUNCEMENT_DETAILS = Route(
     "https://aki-gm-resources-back.aki-game.net/gamenotice/content/G153/6eb2a235b30d05efd77bedb5cf60999e/"
 )
+
+KUROBBS_ANNOUNCEMENT_LIST = Route("https://api.kurobbs.com/forum/companyEvent/findEventList")
+
+LAUNCHER_ANNOUNCEMENT_LIST_CN = Route(
+    "https://pcdownload-huoshan.aki-game.com/pcstarter/prod/starter/10003_Y8xXrXk65DqFHEDgApn3cpK5lfczpFx5/G152/guidance/zh-Hans.json"
+)
+
+LAUNCHER_ANNOUNCEMENT_LIST_GLOBAL = Route(
+    "https://hw-pcdownload-qcloud.aki-game.net/pcstarter/prod/starter/50004_obOHXFrFanqsaIEOmuKroCcbZkQRBC7c/G153/guidance/"
+)
+
+LAUNCHER_ANNOUNCEMENT_DETAILS_GLOBAL = Route(
+    "https://hw-media-cdn-mingchao.kurogame.com/akiwebsite/website2.0/json/G152/"
+)
