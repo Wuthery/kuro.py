@@ -8,7 +8,9 @@ if typing.TYPE_CHECKING:
 
 T = typing.TypeVar("T")
 CallableT = typing.TypeVar("CallableT", bound="typing.Callable[..., object]")
-AsyncCallableT = typing.TypeVar("AsyncCallableT", bound="typing.Callable[..., typing.Awaitable[object]]")
+AsyncCallableT = typing.TypeVar(
+    "AsyncCallableT", bound="typing.Callable[..., typing.Awaitable[object]]"
+)
 
 
 def region_specific(region: "types.Region") -> typing.Callable[[AsyncCallableT], AsyncCallableT]:
@@ -20,7 +22,9 @@ def region_specific(region: "types.Region") -> typing.Callable[[AsyncCallableT],
             if not hasattr(self, "region"):
                 raise TypeError("Cannot use @region_specific on a plain function.")
             if region != self.region:
-                raise RuntimeError("The method can only be used with client region set to " + region)
+                raise RuntimeError(
+                    "The method can only be used with client region set to " + region
+                )
 
             return await func(self, *args, **kwargs)
 

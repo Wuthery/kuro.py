@@ -57,10 +57,10 @@ GAME_ANNOUNCEMENT_DETAILS = Route(
 
 LAUNCHER_ANNOUNCEMENT_LIST = InternationalRoute(
     overseas="https://hw-pcdownload-qcloud.aki-game.net/pcstarter/prod/starter/50004_obOHXFrFanqsaIEOmuKroCcbZkQRBC7c/G153/guidance/",
-    chinese="https://pcdownload-huoshan.aki-game.com/pcstarter/prod/starter/10003_Y8xXrXk65DqFHEDgApn3cpK5lfczpFx5/G152/guidance/zh-Hans.json"
+    chinese="https://pcdownload-huoshan.aki-game.com/pcstarter/prod/starter/10003_Y8xXrXk65DqFHEDgApn3cpK5lfczpFx5/G152/guidance/zh-Hans.json",
 )
 
 LAUNCHER_ANNOUNCEMENT_DETAILS = InternationalRoute(
     overseas="https://hw-media-cdn-mingchao.kurogame.com/akiwebsite/website2.0/json/G152/",
-    chinese="https://media-cdn-mingchao.kurogame.com/akiwebsite/website2.0/json/G152/"
+    chinese="https://media-cdn-mingchao.kurogame.com/akiwebsite/website2.0/json/G152/",
 )
