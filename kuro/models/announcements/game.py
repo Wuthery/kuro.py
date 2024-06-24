@@ -31,42 +31,42 @@ class GameAnnouncementDetails(base.APIModel):
 class GameLocalizedAssetsMap(base.APIModel):
     """Languages for asset fields."""
 
-    zh_hans: typing.Sequence[str] = pydantic.Field(alias="zh-Hans")
+    zh_hans: typing.Sequence[str] | None = pydantic.Field(alias="zh-Hans", default=None)
     """Chinese Simplified."""
-    zh_hant: typing.Sequence[str] = pydantic.Field(alias="zh-Hant")
+    zh_hant: typing.Sequence[str] | None = pydantic.Field(alias="zh-Hant", default=None)
     """Chinese Traditional."""
-    en: typing.Sequence[str]
+    en: typing.Sequence[str] | None = None
     """English."""
-    ja: typing.Sequence[str]
+    ja: typing.Sequence[str] | None = None
     """Japanese."""
-    ko: typing.Sequence[str]
+    ko: typing.Sequence[str] | None = None
     """Korean."""
-    fr: typing.Sequence[str]
+    fr: typing.Sequence[str] | None = None
     """French."""
-    de: typing.Sequence[str]
+    de: typing.Sequence[str] | None = None
     """German."""
-    es: typing.Sequence[str]
+    es: typing.Sequence[str] | None = None
     """Spanish."""
 
 
 class GameLocalizedTextMap(base.APIModel):
     """Languages for text fields."""
 
-    zh_hans: str = pydantic.Field(alias="zh-Hans")
+    zh_hans: str | None = pydantic.Field(alias="zh-Hans", default=None)
     """Chinese Simplified."""
-    zh_hant: str = pydantic.Field(alias="zh-Hant")
+    zh_hant: str | None = pydantic.Field(alias="zh-Hant", default=None)
     """Chinese Traditional."""
-    en: str
+    en: str | None = None
     """English."""
-    ja: str
+    ja: str | None = None
     """Japanese."""
-    ko: str
+    ko: str | None = None
     """Korean."""
-    fr: str
+    fr: str | None = None
     """French."""
-    de: str
+    de: str | None = None
     """German."""
-    es: str
+    es: str | None = None
     """Spanish."""
 
 

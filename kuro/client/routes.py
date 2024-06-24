@@ -47,12 +47,14 @@ GET_SMS_CODE = Route("https://api.kurobbs.com/user/getSmsCodeForH5")
 
 WEB_LOGIN = Route("https://api.kurobbs.com/user/loginForH5")
 
-GAME_ANNOUNCEMENTS = Route(
-    "https://aki-gm-resources-back.aki-game.net/gamenotice/G153/6eb2a235b30d05efd77bedb5cf60999e/notice.json",
+GAME_ANNOUNCEMENTS = InternationalRoute(
+    overseas="https://aki-gm-resources-back.aki-game.net/gamenotice/G153/6eb2a235b30d05efd77bedb5cf60999e/notice.json",
+    chinese="https://aki-gm-resources-back.aki-game.com/gamenotice/G152/76402e5b20be2c39f095a152090afddc/notice.json",
 )
 
-GAME_ANNOUNCEMENT_DETAILS = Route(
-    "https://aki-gm-resources-back.aki-game.net/gamenotice/content/G153/6eb2a235b30d05efd77bedb5cf60999e/"
+GAME_ANNOUNCEMENT_DETAILS = InternationalRoute(
+    overseas="https://aki-gm-resources-back.aki-game.net/gamenotice/content/G153/6eb2a235b30d05efd77bedb5cf60999e/",
+    chinese="https://aki-gm-resources-back.aki-game.com/gamenotice/content/G152/76402e5b20be2c39f095a152090afddc/",
 )
 
 LAUNCHER_ANNOUNCEMENT_LIST = InternationalRoute(

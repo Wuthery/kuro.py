@@ -18,7 +18,7 @@ class GameAnnouncementClient(base.BaseClient):
         ### Returns:
             Game Announcements.
         """
-        rsp = await self.request(routes.GAME_ANNOUNCEMENTS.get_url(), method="GET")
+        rsp = await self.request(routes.GAME_ANNOUNCEMENTS.get_url(self.region))
 
         return models.GameAnnouncementResult(**rsp)
 
@@ -45,7 +45,7 @@ class GameAnnouncementClient(base.BaseClient):
             Game announcement details.
         """
         rsp = await self.request(
-            routes.GAME_ANNOUNCEMENT_DETAILS.get_url() / f"{announcement_id}/{self.lang.value}.json"
+            routes.GAME_ANNOUNCEMENT_DETAILS.get_url(self.region) / f"{announcement_id}/{self.lang.value}.json"
         )
 
         return models.GameAnnouncementDetails(**rsp)
