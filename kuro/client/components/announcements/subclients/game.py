@@ -45,7 +45,8 @@ class GameAnnouncementClient(base.BaseClient):
             Game announcement details.
         """
         rsp = await self.request(
-            routes.GAME_ANNOUNCEMENT_DETAILS.get_url(self.region) / f"{announcement_id}/{self.lang.value}.json"
+            routes.GAME_ANNOUNCEMENT_DETAILS.get_url(self.region)
+            / f"{announcement_id}/{self.lang.value}.json"
         )
 
         return models.GameAnnouncementDetails(**rsp)
