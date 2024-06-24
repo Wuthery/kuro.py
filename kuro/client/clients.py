@@ -8,8 +8,6 @@ __all__ = ["Client"]
 class Client(
     auth.AuthClient,
     gacha.GachaClient,
-    announcements.KurobbsAnnouncementClient,
-    announcements.GameAnnouncementClient,
-    announcements.LauncherAnnouncementClient,
+    announcements.AnnouncementsClient,
 ):
     """Main client for requesting API endpoints."""

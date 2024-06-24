@@ -1,6 +1,7 @@
 """Launcher announcement models."""
 
 import re
+import typing
 
 import pydantic
 
@@ -8,21 +9,21 @@ from kuro import types
 from kuro.models import base
 
 __all__ = [
+    "LauncherAnnouncement",
     "LauncherAnnouncementDetails",
     "LauncherAnnouncementGroup",
     "LauncherAnnouncementInner",
-    "LauncherAnnouncementItem",
     "LauncherAnnouncementList",
     "LauncherSlideshowItem",
 ]
 
 
-class LauncherAnnouncementItem(base.APIModel):
-    """Launcher announcment item."""
+class LauncherAnnouncement(base.APIModel):
+    """Launcher announcement item."""
 
     content: str
     """Launcher box content."""
-    jump_url: str = pydantic.Field(alias="jumpUrl")
+    jump_url: str
     """Link to details."""
     time: str
     """Date in days of release."""
@@ -45,18 +46,18 @@ class LauncherAnnouncementItem(base.APIModel):
 class LauncherAnnouncementGroup(base.APIModel):
     """Launcher announcement group."""
 
-    contents: list[LauncherAnnouncementItem]
+    contents: typing.Sequence[LauncherAnnouncement]
     """List of announcements."""
     title: str
     """Group title."""
 
 
 class LauncherAnnouncementInner(base.APIModel):
-    """Launcher announcemnt inner group."""
+    """Launcher announcement inner group."""
 
     activity: LauncherAnnouncementGroup
     """Activity section."""
-    desc: str
+    description: str = pydantic.Field(alias="desc")
     """Description."""
     news: LauncherAnnouncementGroup
     """News section."""
@@ -67,7 +68,7 @@ class LauncherAnnouncementInner(base.APIModel):
 class LauncherSlideshowItem(base.APIModel):
     """Launcher slideshow item."""
 
-    jump_url: str = pydantic.Field(alias="jumpUrl")
+    jump_url: str
     """Slideshow."""
     md5: str
     """md5 hash."""
@@ -80,26 +81,31 @@ class LauncherAnnouncementList(base.APIModel):
 
     guidance: LauncherAnnouncementInner
     """Launcher Announcement Inner grouping."""
-    slideshow: list[LauncherSlideshowItem]
+    slideshow: typing.Sequence[LauncherSlideshowItem]
     """Slideshow list."""
 
 
 class LauncherAnnouncementDetails(base.APIModel):
     """Launcher announcement content."""
 
-    article_content: str = pydantic.Field(alias="articleContent")
+    article_content: str
     """html response"""
-    article_id: int = pydantic.Field(alias="articleId")
+    article_id: int
     """Article id"""
-    article_title: str = pydantic.Field(alias="articleTitle")
+    article_title: str
     """Article title"""
-    article_type: int = pydantic.Field(alias="articleType")
+    article_type: int
     """Article type"""
-    article_type_name: str = pydantic.Field(alias="articleTypeName")
+    article_type_name: str
     """Article type name"""
-    end_time: str = pydantic.Field(alias="endTime")
-    """ISO 8601 timestamp for when not to show article"""
-    game_id: str = pydantic.Field(alias="gameId")
+    game_id: str
     """Game id"""
-    start_time: str = pydantic.Field(alias="startTime")
+    start_time: str
     """ISO 8601 timestamp for when not to start showing article"""
+    end_time: str | None = None
+    """ISO 8601 timestamp for when not to show article"""
+
+    @property
+    def game(self) -> types.Game:
+        """Game type."""
+        return types.Game(self.game_id)

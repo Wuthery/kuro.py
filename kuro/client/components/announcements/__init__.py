@@ -1,5 +1,3 @@
-"""Announcement Clients."""
+"""Announcements Client."""
 
-from .game_announcement import *
-from .kurobbs_announcement import *
-from .launcher_announcement import *
+from .client import *

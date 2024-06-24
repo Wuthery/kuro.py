@@ -1,12 +1,22 @@
 import pytest
 
 import kuro
+from kuro import types
 
 
 @pytest.fixture(scope="session")
 async def client():
     """Return a Kuro client instance."""
     client = kuro.Client()
+    client.debug = True
+
+    return client
+
+
+@pytest.fixture(scope="session")
+async def cn_client():
+    """Return a CN Kuro client instance."""
+    client = kuro.Client(region=types.Region.CHINESE)
     client.debug = True
 
     return client

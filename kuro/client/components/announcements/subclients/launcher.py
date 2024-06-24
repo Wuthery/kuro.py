@@ -1,4 +1,4 @@
-"""Component for launcher announcement pages."""
+"""Component for launcher announcements."""
 
 from __future__ import annotations
 
@@ -12,9 +12,7 @@ __all__ = ["LauncherAnnouncementClient"]
 class LauncherAnnouncementClient(base.BaseClient):
     """Launcher Announcement Client."""
 
-    async def get_launcher_announcements(
-        self, lang: types.Lang | None = None
-    ) -> models.LauncherAnnouncementList:
+    async def get_launcher_announcements(self) -> models.LauncherAnnouncementList:
         """Get launcher announcement list.
 
         ### Example:
@@ -22,34 +20,22 @@ class LauncherAnnouncementClient(base.BaseClient):
         launcher_announcements = await client.get_launcher_announcements()
         print(launcher_announcements.guidance.activity.contents[0].content)
         ```
-        ### Args:
-            lang: Language
 
         ### Returns:
             Launcher official announcements list
-
         """
-        if lang is None:
-            lang = self.lang
+        url = routes.LAUNCHER_ANNOUNCEMENT_LIST.get_url(self.region)
+        if self.region is types.Region.OVERSEAS:
+            url /= f"{self.lang.value}.json"
 
-        rsp = None
-
-        if lang is types.Lang.CHINESE_SIMPLIFIED:
-            rsp = await self.request(routes.LAUNCHER_ANNOUNCEMENT_LIST_CN.get_url(), method="GET")
-        else:
-            rsp = await self.request(
-                routes.LAUNCHER_ANNOUNCEMENT_LIST_GLOBAL.get_url() / f"{lang.value}.json"
-            )
+        rsp = await self.request(url)
 
         return models.LauncherAnnouncementList(**rsp)
 
     async def get_launcher_announcement_details(
-        self, announcement_id: int, lang: types.Lang | None = None
+        self, announcement_id: int
     ) -> models.LauncherAnnouncementDetails:
         """Get Launcher official announcement details.
-
-        Url required as each language has a different article id,
-        so both are required to obtain the data
 
         ### Example:
         ```python
@@ -58,23 +44,19 @@ class LauncherAnnouncementClient(base.BaseClient):
             id = launcher_announcements.guidance.activity.contents[0].id
             lang = launcher_announcements.guidance.activity.contents[0].lang
 
-            result = await client.get_launcher_announcement_details(id, lang)
+            details = await client.get_launcher_announcement_details(id, lang)
+            print(details.article_title)
         ```
 
         ### Args:
-            url: url retrieved from get_launcher_announcements
+            announcement_id: ID of the announcement to get details for
 
         ### Returns:
             Launcher announcement details
-
         """
-        if lang is None:
-            lang = self.lang
+        url = routes.LAUNCHER_ANNOUNCEMENT_DETAILS.get_url(self.region)
+        lang = self.lang.value if self.region is types.Region.OVERSEAS else "zh"
 
-        rsp = await self.request(
-            routes.LAUNCHER_ANNOUNCEMENT_DETAILS_GLOBAL.get_url()
-            / f"{lang.value}/article/{announcement_id}.json",
-            method="GET",
-        )
+        rsp = await self.request(url / f"{lang}/article/{announcement_id}.json")
 
         return models.LauncherAnnouncementDetails(**rsp)

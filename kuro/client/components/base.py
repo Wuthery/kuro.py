@@ -49,12 +49,15 @@ class BaseClient(abc.ABC):
         cookies: CookieOrHeader | None = None,
         *,
         lang: types.Lang = types.Lang.ENGLISH,
+        region: types.Region = types.Region.OVERSEAS,
         cache: aiocache.Cache | None = None,
         debug: bool = False,
     ) -> None:
         self.cookies = parse_cookie(cookies) if cookies else {}
         self.lang = lang
         """Language to use for the API."""
+        self.region = region
+        """Region to use for the API."""
         self.cache = cache
         """Cache to store responses."""
         self.debug = debug
