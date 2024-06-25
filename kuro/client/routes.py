@@ -6,7 +6,18 @@ import yarl
 
 from kuro import types
 
-__all__ = ["GACHA_RECORD_URL", "GET_SMS_CODE", "WEB_LOGIN", "Route"]
+__all__ = [
+    "GACHA_RECORD_URL",
+    "GAME_ANNOUNCEMENTS",
+    "GAME_ANNOUNCEMENT_DETAILS",
+    "GAME_LOGIN",
+    "GET_SMS_CODE",
+    "LAUNCHER_ANNOUNCEMENT_DETAILS",
+    "LAUNCHER_ANNOUNCEMENT_LIST",
+    "WEB_LOGIN",
+    "InternationalRoute",
+    "Route",
+]
 
 
 class Route:
@@ -66,3 +77,11 @@ LAUNCHER_ANNOUNCEMENT_DETAILS = InternationalRoute(
     overseas="https://hw-media-cdn-mingchao.kurogame.com/akiwebsite/website2.0/json/G152/",
     chinese="https://media-cdn-mingchao.kurogame.com/akiwebsite/website2.0/json/G152/",
 )
+
+GAME_LOGIN = Route("https://sdkapi.kurogame-service.com/sdkcom/v2/login/emailPwd.lg")
+
+GAME_TOKEN = Route("https://sdkapi.kurogame-service.com/sdkcom/v2/auth/getToken.lg")
+
+GAME_TOKEN_CHECK = Route("https://sdkapi.kurogame-service.com/sdkcom/v2/heartbeat/tokenCheck.lg")
+
+GAME_AUTO_LOGIN = Route("https://sdkapi.kurogame-service.com/sdkcom/v2/login/auto.lg")
