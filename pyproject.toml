@@ -9,7 +9,7 @@ requires-python = ">=3.10"
 
 [project.optional-dependencies]
 caching = ["aiocache"]
-test = ["pytest", "pytest-asyncio"]
+test = ["pytest", "python-dotenv", "pytest-asyncio"]
 
 [tool.poetry]
 authors = [
@@ -52,6 +52,7 @@ optional = true
 
 [tool.poetry.group.test.dependencies]
 pytest = "^8.2.2"
+python-dotenv = "^1.0.1"
 pytest-asyncio = "^0.23.7"
 
 [build-system]
