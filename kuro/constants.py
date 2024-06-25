@@ -21,3 +21,5 @@ GEETEST_LANGS: typing.Mapping[types.Lang, str] = {
 
 WUTHERY_CDN: str = "https://nogatekeep.wuthery.com"
 """Wuthery CDN URL."""
+
+AKI_GAME_RESOURCES: str = "https://aki-gm-resources-back.aki-game.net"

@@ -70,3 +70,13 @@ class WuWaBanner(enum.IntEnum):
 
     GIVEBACK_CUSTOM = 7
     """Beginner's Choice Convene (Giveback Custom Convene)"""
+
+
+class Region(str, enum.Enum):
+    """Region."""
+
+    OVERSEAS = "os"
+    """Overseas"""
+
+    CHINESE = "cn"
+    """Chinese"""

@@ -16,6 +16,9 @@ ignore = [
   "RUF100",
   "D105",
   "D107",
+  "EM101",
+  "EM102",
+  "TRY003"
 ]
 preview = true
 select = [
