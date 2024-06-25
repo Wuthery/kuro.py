@@ -1,4 +1,4 @@
-"""Auth component responsible for authentication."""
+"""Component used to fetch gacha records."""
 
 import typing
 
