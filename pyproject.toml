@@ -1,36 +1,44 @@
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core"]
+
 [project]
+name = "kuro.py"
+description = "Async API wrapper for KuroBBS written in Python."
+requires-python = ">=3.10"
 dependencies = [
   "pydantic>=2.0.1",
   "aiohttp>=3.8.4",
 ]
-description = "Async API wrapper for KuroBBS written in Python."
-name = "kuro.py"
-requires-python = ">=3.10"
+
+[project.urls]
+Homepage = "https://github.com/Wuthery/kuro.py"
+Repository = "https://github.com/Wuthery/kuro.py"
+Documentation = "https://github.com/Wuthery/kuro.py"
 
 [project.optional-dependencies]
 caching = ["aiocache"]
-test = ["pytest", "pytest-asyncio"]
+test = ["pytest", "python-dotenv", "pytest-asyncio"]
 
 [tool.poetry]
+name = "kuro.py"
+version = "0.3.0"
+description = "Async API wrapper for KuroBBS written in Python."
 authors = [
   "JokelBaf <jokelbaf@gmail.com>",
 ]
-description = "Async API wrapper for KuroBBS written in Python."
-documentation = "https://github.com/Wuthery/kuro.py"
-homepage = "https://github.com/Wuthery/kuro.py"
-keywords = ["kuro", "wuwa", "api", "wraper", "kurobbs"]
+keywords = [
+  "kuro", "wuwa", "api", "wraper", "kurobbs"
+]
+readme = "README.md"
 license = "GPL-3.0"
 maintainers = [
   "JokelBaf <jokelbaf@gmail.com>",
   "seriaati <seria.ati@gmail.com>",
 ]
-name = "kuro.py"
 packages = [
-  {include = "kuro"},
+  { include = "kuro" },
 ]
-readme = "README.md"
-repository = "https://github.com/Wuthery/kuro.py"
-version = "0.3.0"
 
 [tool.poetry.dependencies]
 aiohttp = "^3.8.4"
@@ -52,11 +60,8 @@ optional = true
 
 [tool.poetry.group.test.dependencies]
 pytest = "^8.2.2"
+python-dotenv = "^1.0.1"
 pytest-asyncio = "^0.23.7"
-
-[build-system]
-build-backend = "poetry.core.masonry.api"
-requires = ["poetry-core"]
 
 [tool.pytest.ini_options]
 addopts = [

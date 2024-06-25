@@ -1,3 +1,6 @@
+import os
+
+import dotenv
 import pytest
 
 import kuro
@@ -43,3 +46,28 @@ def gacha_url():
         "&"
         "resources_id=917dfa695d6c6634ee4e972bb9168f6a"
     )
+
+
+def pytest_configure(config: pytest.Config) -> None:
+    """Configure pytest."""
+    dotenv.load_dotenv()
+
+
+@pytest.fixture(scope="session")
+def email() -> str:
+    """Return the test login."""
+    test_email = os.environ.get("TEST_EMAIL")
+    if test_email is None:
+        pytest.exit("Test email not set.", 1)
+
+    return test_email
+
+
+@pytest.fixture(scope="session")
+def password() -> str:
+    """Return the test password."""
+    test_password = os.environ.get("TEST_PASSWORD")
+    if test_password is None:
+        pytest.exit("Test password not set.", 1)
+
+    return test_password
