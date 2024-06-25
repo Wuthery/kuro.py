@@ -28,5 +28,8 @@ jobs:
           poetry install --with test
 
       - name: Run Pytest
+        env:
+          TEST_EMAIL: ${{ secrets.TEST_EMAIL }}
+          TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
         run: |
           poetry run pytest
