@@ -7,7 +7,7 @@ import yarl
 from kuro import types
 
 __all__ = [
-    "GACHA_RECORD_URL",
+    "GACHA_RECORD",
     "GAME_ANNOUNCEMENTS",
     "GAME_ANNOUNCEMENT_DETAILS",
     "GAME_LOGIN",
@@ -52,7 +52,7 @@ class InternationalRoute:
         return self.urls[region]
 
 
-GACHA_RECORD_URL = Route("https://gmserver-api.aki-game2.net/gacha/record/query")
+GACHA_RECORD = Route("https://gmserver-api.aki-game2.net/gacha/record/query")
 
 GET_SMS_CODE = Route("https://api.kurobbs.com/user/getSmsCodeForH5")
 
@@ -85,3 +85,5 @@ GAME_TOKEN = Route("https://sdkapi.kurogame-service.com/sdkcom/v2/auth/getToken.
 GAME_TOKEN_CHECK = Route("https://sdkapi.kurogame-service.com/sdkcom/v2/heartbeat/tokenCheck.lg")
 
 GAME_AUTO_LOGIN = Route("https://sdkapi.kurogame-service.com/sdkcom/v2/login/auto.lg")
+
+GAME_USER_INFO = Route("https://gar-service.aki-game.net/UserRegion/GetUserInfo")

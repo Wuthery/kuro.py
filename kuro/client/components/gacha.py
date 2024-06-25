@@ -48,7 +48,7 @@ class GachaClient(base.BaseClient):
             "serverId": server.value,
             "cardPoolId": "",
         }
-        rsp = await self.request(routes.GACHA_RECORD_URL.get_url(), method="POST", json=body)
+        rsp = await self.request(routes.GACHA_RECORD.get_url(), method="POST", json=body)
 
         if rsp["code"] != 0:
             errors.raise_from_data(rsp)
