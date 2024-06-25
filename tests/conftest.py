@@ -58,7 +58,7 @@ def email() -> str:
     """Return the test login."""
     test_email = os.environ.get("TEST_EMAIL")
     if test_email is None:
-        pytest.exit("Test login not set.", 1)
+        pytest.exit("Test email not set.", 1)
 
     return test_email
 
