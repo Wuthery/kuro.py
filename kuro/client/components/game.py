@@ -9,13 +9,7 @@ class GameClient(base.BaseClient):
     """Game client."""
 
     async def get_game_user(
-        self,
-        user_id: int,
-        token: str,
-        area: str,
-        username: str,
-        *,
-        login_type: int = 1
+        self, user_id: int, token: str, area: str, username: str, *, login_type: int = 1
     ) -> models.GameUser:
         """Get game user info.
 
@@ -27,7 +21,7 @@ class GameClient(base.BaseClient):
             "userId": user_id,
             "token": token,
             "area": area,
-            "userName": username
+            "userName": username,
         }
         rsp = await self.request(routes.GAME_USER_INFO.get_url().with_query(params))
 
