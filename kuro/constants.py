@@ -19,7 +19,7 @@ GEETEST_LANGS: typing.Mapping[types.Lang, str] = {
 }
 """Geetest languages."""
 
-WUTHERY_CDN: str = "https://nogatekeep.wuthery.com"
+WUTHERY_CDN: str = "https://files.wuthery.com"
 """Wuthery CDN URL."""
 
 APP_KEYS: typing.Mapping[types.Game, typing.Mapping[types.Region, str]] = {
