@@ -19,7 +19,7 @@ class KuroError(Exception):
 
     def __init__(self, response: typing.Mapping[str, typing.Any]) -> None:
         self.response = response
-        self.api_msg = response.get("msg", "")
+        self.api_msg = response.get("msg", response.get("message", ""))
 
         self.retcode = self.retcode or RETCODES[self.api_msg]
         self.msg = self.msg or ERROR_TRANSLATIONS[self.retcode]
@@ -44,6 +44,7 @@ class KuroError(Exception):
 RETCODES: typing.Mapping[str, int] = {
     "": 0,  # Unknown error
     "系统异常": 1,  # System error
+    "请求游戏获取日志异常!": 2,  # Gacha history params expired
 }
 """Kuro.py's custom error codes matched with API error messages."""
 
@@ -51,6 +52,7 @@ RETCODES: typing.Mapping[str, int] = {
 ERROR_TRANSLATIONS: typing.Mapping[int, str] = {
     0: "Unknown error occurred when requesting the API",
     1: "System error",
+    2: "Gacha history params expired",
 }
 """English error messages translated from Kuro.py's custom error codes."""
 
