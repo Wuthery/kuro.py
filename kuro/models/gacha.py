@@ -1,6 +1,6 @@
 """Gacha models."""
 
-import datetime  # noqa: TCH003
+import datetime  # noqa: TC003
 import enum
 import typing
 
