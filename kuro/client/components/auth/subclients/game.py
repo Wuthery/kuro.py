@@ -1,4 +1,5 @@
 """Game auth client."""
+import typing
 
 from kuro import constants, errors, models, types
 from kuro.client import decorators, routes
@@ -22,12 +23,11 @@ class GameAuthClient(base.BaseClient):
         ### Returns:
             Login result.
         """
-        data = {
+        data: dict[str, typing.Any] = {
             "__e__": 1,
             "email": email,
             "client_id": "7rxmydkibzzsf12om5asjnoo",  # KR_PRODUCT_KEY in kr_sdk_config.json
             "deviceNum": "A227C7BA-CB16-4E62-8355-BEABE3DE10F8",  # Can be any random string
-            "os": "iOS",
             "password": auth.encode_password(password),
             "platform": "iOS",
             "productId": "A1725",
@@ -35,7 +35,8 @@ class GameAuthClient(base.BaseClient):
             "projectId": "G153",
             "redirect_uri": 1,
             "response_type": "code",
-            "sdkVersion": "1.8.3h",
+            "sdkVersion": "1.9.8h",
+            "channelId": "171",
         }
         data["sign"] = auth.encode_md5_parameter(
             data, constants.APP_KEYS[types.Game.WUWA][self.region]
@@ -57,7 +58,7 @@ class GameAuthClient(base.BaseClient):
         ### Returns:
             Game token result.
         """
-        data = {
+        data: dict[str, typing.Any] = {
             "client_id": "7rxmydkibzzsf12om5asjnoo",  # KR_PRODUCT_KEY in kr_sdk_config.json
             "deviceNum": "A227C7BA-CB16-4E62-8355-BEABE3DE10F8",
             "client_secret": "32gh5r0p35ullmxrzzwk40ly",
@@ -92,6 +93,7 @@ class GameAuthClient(base.BaseClient):
             "access_token": access_token,
             "productId": "A1725",
             "projectId": "G153",
+            "channelId": "171",
         }
         data["sign"] = auth.encode_md5_parameter(
             data, constants.APP_KEYS[types.Game.WUWA][self.region]
@@ -113,7 +115,7 @@ class GameAuthClient(base.BaseClient):
         ### Returns:
             Login result.
         """
-        data = {
+        data: dict[str, typing.Any] = {
             "token": auto_token,
             "client_id": "7rxmydkibzzsf12om5asjnoo",  # KR_PRODUCT_KEY in kr_sdk_config.json
             "deviceNum": "A227C7BA-CB16-4E62-8355-BEABE3DE10F8",
@@ -121,6 +123,7 @@ class GameAuthClient(base.BaseClient):
             "projectId": "G153",
             "redirect_uri": 1,
             "response_type": "code",
+            "channelId": "171",
         }
         data["sign"] = auth.encode_md5_parameter(
             data, constants.APP_KEYS[types.Game.WUWA][self.region]

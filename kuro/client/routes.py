@@ -73,14 +73,11 @@ GAME_ANNOUNCEMENT_DETAILS = InternationalRoute(
 )
 
 LAUNCHER_ANNOUNCEMENT_LIST = InternationalRoute(
-    overseas="https://hw-pcdownload-qcloud.aki-game.net/pcstarter/prod/starter/50004_obOHXFrFanqsaIEOmuKroCcbZkQRBC7c/G153/guidance/",
-    chinese="https://pcdownload-huoshan.aki-game.com/pcstarter/prod/starter/10003_Y8xXrXk65DqFHEDgApn3cpK5lfczpFx5/G152/guidance/zh-Hans.json",
+    overseas="https://prod-alicdn-gamestarter.kurogame.com/launcher/50004_obOHXFrFanqsaIEOmuKroCcbZkQRBC7c/G153/information/",
+    chinese="https://prod-cn-alicdn-gamestarter.kurogame.com/launcher/10003_Y8xXrXk65DqFHEDgApn3cpK5lfczpFx5/G152/information/zh-Hans.json",
 )
 
-LAUNCHER_ANNOUNCEMENT_DETAILS = InternationalRoute(
-    overseas="https://hw-media-cdn-mingchao.kurogame.com/akiwebsite/website2.0/json/G152/",
-    chinese="https://media-cdn-mingchao.kurogame.com/akiwebsite/website2.0/json/G152/",
-)
+LAUNCHER_ANNOUNCEMENT_DETAILS = Route("https://hw-media-cdn-mingchao.kurogame.com/akiwebsite/website2.0/json/G152/")
 
 GAME_LOGIN = Route("https://sdkapi.kurogame-service.com/sdkcom/v2/login/emailPwd.lg")
 

@@ -16,7 +16,7 @@ class GameClient(base.BaseClient):
         ### Returns:
             Game info.
         """
-        params = {
+        params: dict[str, str | int] = {
             "loginType": login_type,
             "userId": user_id,
             "token": token,
@@ -25,7 +25,7 @@ class GameClient(base.BaseClient):
         }
         rsp = await self.request(routes.GAME_USER_INFO.get_url().with_query(params))
 
-        if rsp["Code"] != 0:
+        if rsp["Code"] not in {0, 49}:
             errors.raise_from_data(rsp)
 
         return models.GameUser(**rsp)

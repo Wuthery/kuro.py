@@ -31,9 +31,10 @@ class LauncherAnnouncement(base.APIModel):
     @property
     def id(self) -> int:
         """Announcement Id."""
-        m = re.search(r"/detail/(\d+)", self.jump_url)
-        assert m is not None, "Failed to extract ID from jump URL"
-        return int(m.group(1))
+        parts = self.jump_url.split("/")
+        post_id = parts[-1] if len(parts) > 0 else None
+        assert post_id is not None, "Failed to extract ID from jump URL"
+        return int(post_id)
 
     @property
     def lang(self) -> types.Lang:

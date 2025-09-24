@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from kuro import models, types
-from kuro.client import routes
+from kuro.client import decorators, routes
 from kuro.client.components import base
 
 __all__ = ["LauncherAnnouncementClient"]
@@ -32,6 +32,7 @@ class LauncherAnnouncementClient(base.BaseClient):
 
         return models.LauncherAnnouncementList(**rsp)
 
+    @decorators.region_specific(types.Region.OVERSEAS)
     async def get_launcher_announcement_details(
         self, announcement_id: int
     ) -> models.LauncherAnnouncementDetails:
@@ -54,9 +55,7 @@ class LauncherAnnouncementClient(base.BaseClient):
         ### Returns:
             Launcher announcement details
         """
-        url = routes.LAUNCHER_ANNOUNCEMENT_DETAILS.get_url(self.region)
-        lang = self.lang.value if self.region is types.Region.OVERSEAS else "zh"
-
-        rsp = await self.request(url / f"{lang}/article/{announcement_id}.json")
+        url = routes.LAUNCHER_ANNOUNCEMENT_DETAILS.get_url()
+        rsp = await self.request(url / f"{self.lang.value}/article/{announcement_id}.json")
 
         return models.LauncherAnnouncementDetails(**rsp)

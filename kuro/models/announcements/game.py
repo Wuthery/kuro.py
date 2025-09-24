@@ -18,7 +18,7 @@ __all__ = [
 class GameAnnouncementDetails(base.APIModel):
     """Announcement Details."""
 
-    announcement_id: str = pydantic.Field(alias="noticeId")
+    announcement_id: int = pydantic.Field(alias="noticeId")
     """Announcement ID."""
     html_content: str = pydantic.Field(alias="textContent")
     """HTML content."""

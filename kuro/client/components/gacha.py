@@ -40,7 +40,7 @@ class GachaClient(base.BaseClient):
         ### Returns:
             Sequence of gacha records.
         """
-        body = {
+        body: dict[str, typing.Any] = {
             "playerId": str(player_id),
             "languageCode": lang.value if lang else self.lang.value,
             "cardPoolType": int(banner),

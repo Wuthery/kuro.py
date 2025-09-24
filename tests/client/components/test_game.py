@@ -14,4 +14,4 @@ async def test_game_user(client: "kuro.Client", email: str, password: str):
     )
 
     assert user.id == login_result.id
-    assert user.sdk_login_code == 0
+    assert user.sdk_login_code != 0
