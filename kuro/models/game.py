@@ -79,9 +79,7 @@ class BasicRoleInfo(base.APIModel):
         alias="StoreEnergyRecoverTime"
     )
     """Refined waveplates replenish time."""
-    waveplates_replenish_time: datetime.datetime = pydantic.Field(
-        alias="EnergyRecoverTime"
-    )
+    waveplates_replenish_time: datetime.datetime = pydantic.Field(alias="EnergyRecoverTime")
     """Waveplates replenish time."""
     activity_points: int = pydantic.Field(alias="Liveness")
     """Current activity points."""

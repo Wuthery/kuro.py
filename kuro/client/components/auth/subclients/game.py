@@ -1,4 +1,5 @@
 """Game auth client."""
+
 import typing
 
 from kuro import constants, errors, models, types

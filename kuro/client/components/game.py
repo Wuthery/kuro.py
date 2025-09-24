@@ -1,4 +1,5 @@
 """Game component for fetching game data."""
+
 import json
 
 from kuro import errors, models, types
@@ -40,7 +41,9 @@ class GameClient(base.BaseClient):
         return models.GameUser(**rsp)
 
     @decorators.region_specific(types.Region.OVERSEAS)
-    async def get_player_info(self, oauth_code: str, *, max_attempts: int = 3) -> dict[str, models.GamePlayerInfo]:
+    async def get_player_info(
+        self, oauth_code: str, *, max_attempts: int = 3
+    ) -> dict[str, models.GamePlayerInfo]:
         """Get player info.
 
         ### Args:
@@ -92,7 +95,9 @@ class GameClient(base.BaseClient):
         rsp = await self.request(routes.LAUNCHER_PLAYER_ROLE.get_url(), method="POST", json=data)
 
         if max_attempts > 0 and rsp["code"] == 1005:
-            return await self.get_player_role(oauth_code, player_id, region, max_attempts=max_attempts - 1)
+            return await self.get_player_role(
+                oauth_code, player_id, region, max_attempts=max_attempts - 1
+            )
 
         if rsp["code"] != 0:
             errors.raise_from_data(rsp)

@@ -77,7 +77,9 @@ LAUNCHER_ANNOUNCEMENT_LIST = InternationalRoute(
     chinese="https://prod-cn-alicdn-gamestarter.kurogame.com/launcher/10003_Y8xXrXk65DqFHEDgApn3cpK5lfczpFx5/G152/information/zh-Hans.json",
 )
 
-LAUNCHER_ANNOUNCEMENT_DETAILS = Route("https://hw-media-cdn-mingchao.kurogame.com/akiwebsite/website2.0/json/G152/")
+LAUNCHER_ANNOUNCEMENT_DETAILS = Route(
+    "https://hw-media-cdn-mingchao.kurogame.com/akiwebsite/website2.0/json/G152/"
+)
 
 GAME_LOGIN = Route("https://sdkapi.kurogame-service.com/sdkcom/v2/login/emailPwd.lg")
 
