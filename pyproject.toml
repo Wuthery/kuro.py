@@ -1,14 +1,37 @@
 [build-system]
-build-backend = "poetry.core.masonry.api"
-requires = ["poetry-core"]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [project]
 name = "kuro.py"
+version = "0.4.1"
 description = "Async API wrapper for KuroBBS written in Python."
+authors = [{ name = "JokelBaf", email = "jokelbaf@gmail.com" }]
 requires-python = ">=3.10"
+readme = "README.md"
+license = "GPL-3.0"
+maintainers = [
+    { name = "JokelBaf", email = "jokelbaf@gmail.com" },
+    { name = "seriaati", email = "seria.ati@gmail.com" },
+]
+keywords = [
+    "kuro",
+    "wuwa",
+    "api",
+    "wraper",
+    "kurobbs",
+]
 dependencies = [
-  "pydantic>=2.0.1",
-  "aiohttp>=3.8.4",
+    "pydantic>=2.0.1",
+    "aiohttp>=3.8.4",
+]
+
+[project.optional-dependencies]
+caching = ["aiocache"]
+test = [
+    "pytest",
+    "python-dotenv",
+    "pytest-asyncio",
 ]
 
 [project.urls]
@@ -16,55 +39,34 @@ Homepage = "https://github.com/Wuthery/kuro.py"
 Repository = "https://github.com/Wuthery/kuro.py"
 Documentation = "https://github.com/Wuthery/kuro.py"
 
-[project.optional-dependencies]
-caching = ["aiocache"]
-test = ["pytest", "python-dotenv", "pytest-asyncio"]
-
-[tool.poetry]
-name = "kuro.py"
-version = "0.4.1"
-description = "Async API wrapper for KuroBBS written in Python."
-authors = [
-  "JokelBaf <jokelbaf@gmail.com>",
+[dependency-groups]
+dev = [
+    "pre-commit>=4.0.0,<5",
+    "ruff>=0.13.0,<0.14",
 ]
-keywords = [
-  "kuro", "wuwa", "api", "wraper", "kurobbs"
-]
-readme = "README.md"
-license = "GPL-3.0"
-maintainers = [
-  "JokelBaf <jokelbaf@gmail.com>",
-  "seriaati <seria.ati@gmail.com>",
-]
-packages = [
-  { include = "kuro" },
+test = [
+    "pytest>=8.2.2,<9",
+    "python-dotenv>=1.0.1,<2",
+    "pytest-asyncio>=1.0.0,<2",
 ]
 
-[tool.poetry.dependencies]
-aiohttp = "^3.8.4"
-pydantic = "^2.0.1"
-python = "^3.10"
+[tool.uv]
+default-groups = [
+    "dev",
+    "test",
+]
 
-[tool.poetry.extras]
-caching = ["aiocache"]
+[tool.hatch.build.targets.sdist]
+include = ["kuro"]
 
-[tool.poetry.group.dev]
-optional = true
-
-[tool.poetry.group.dev.dependencies]
-pre-commit = "^4.0.0"
-ruff = "^0.13.0"
-
-[tool.poetry.group.test]
-optional = true
-
-[tool.poetry.group.test.dependencies]
-pytest = "^8.2.2"
-python-dotenv = "^1.0.1"
-pytest-asyncio = "^1.0.0"
+[tool.hatch.build.targets.wheel]
+include = ["kuro"]
 
 [tool.pytest.ini_options]
 addopts = [
   "--import-mode=importlib",
 ]
 asyncio_mode = "auto"
+pythonpath = [
+  "."
+]
