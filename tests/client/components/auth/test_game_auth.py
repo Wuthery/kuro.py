@@ -37,3 +37,12 @@ async def test_game_auto_login(client: "kuro.Client", email: str, password: str)
 
     assert auto_login_result.email == email
     assert not auto_login_result.first_login
+
+
+async def test_oauth_code(client: "kuro.Client", email: str, password: str):
+    """Test obtaining OAuth code."""
+    login_result = await client.game_login(email, password)
+    token_result = await client.get_game_token(login_result.code)
+    oauth_code = await client.generate_oauth_code(token_result.access_token)
+
+    assert oauth_code
