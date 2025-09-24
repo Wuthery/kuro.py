@@ -134,3 +134,30 @@ class GameAuthClient(base.BaseClient):
             errors.raise_from_data(rsp)
 
         return models.GameLoginResult(**rsp)
+
+    @decorators.region_specific(types.Region.OVERSEAS)
+    async def generate_oauth_code(self, game_token: str) -> str:
+        """Generate OAuth code from game token.
+
+        ### Args:
+            game_token: Game access token.
+
+        ### Returns:
+            The generated OAuth code.
+        """
+        data: dict[str, int | str] = {
+            "client_id": "7rxmydkibzzsf12om5asjnoo",  # KR_PRODUCT_KEY in kr_sdk_config.json
+            "deviceNum": "A227C7BA-CB16-4E62-8355-BEABE3DE10F8",
+            "client_secret": "32gh5r0p35ullmxrzzwk40ly",
+            "access_token": game_token,
+            "productId": "A1725",
+            "projectId": "G153",
+            "redirect_uri": 1,
+            "scope": "launcher",
+        }
+        rsp = await self.request(routes.OAUTH_CODE.get_url(), data=data)
+
+        if rsp["codes"] not in {0, None}:
+            errors.raise_from_data(rsp)
+
+        return rsp["oauthCode"]

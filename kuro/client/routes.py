@@ -88,3 +88,5 @@ GAME_TOKEN_CHECK = Route("https://sdkapi.kurogame-service.com/sdkcom/v2/heartbea
 GAME_AUTO_LOGIN = Route("https://sdkapi.kurogame-service.com/sdkcom/v2/login/auto.lg")
 
 GAME_USER_INFO = Route("https://gar-service.aki-game.net/UserRegion/GetUserInfo")
+
+OAUTH_CODE = Route("https://sdkapi.kurogame-service.com/sdkcom/v2/user/oauth/code/generate.lg")
