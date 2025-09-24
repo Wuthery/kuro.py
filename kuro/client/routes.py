@@ -90,3 +90,7 @@ GAME_AUTO_LOGIN = Route("https://sdkapi.kurogame-service.com/sdkcom/v2/login/aut
 GAME_USER_INFO = Route("https://gar-service.aki-game.net/UserRegion/GetUserInfo")
 
 OAUTH_CODE = Route("https://sdkapi.kurogame-service.com/sdkcom/v2/user/oauth/code/generate.lg")
+
+LAUNCHER_PLAYER_INFO = Route("https://pc-launcher-sdk-api.kurogame.net/game/queryPlayerInfo")
+
+LAUNCHER_PLAYER_ROLE = Route("https://pc-launcher-sdk-api.kurogame.net/game/queryRole")

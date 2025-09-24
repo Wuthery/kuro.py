@@ -3,7 +3,7 @@
 import typing
 
 from kuro import errors, models, types
-from kuro.client import routes
+from kuro.client import decorators, routes
 from kuro.client.components import base
 
 __all__ = ["GachaClient"]
@@ -12,6 +12,7 @@ __all__ = ["GachaClient"]
 class GachaClient(base.BaseClient):
     """Gacha client."""
 
+    @decorators.region_specific(types.Region.OVERSEAS)
     async def get_gacha_record(
         self,
         player_id: int,
