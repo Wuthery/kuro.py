@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "kuro.py"
-version = "0.5.0"
+version = "0.6.0"
 description = "Async API wrapper for KuroBBS written in Python."
 authors = [{ name = "JokelBaf", email = "jokelbaf@gmail.com" }]
 requires-python = ">=3.10"
