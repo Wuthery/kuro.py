@@ -1,5 +1,7 @@
 from typing import TYPE_CHECKING
 
+from kuro.utility.auth import generate_uuid_uppercase
+
 if TYPE_CHECKING:
     import kuro
 
@@ -32,8 +34,9 @@ async def test_check_game_token(client: "kuro.Client", email: str, password: str
 
 async def test_game_auto_login(client: "kuro.Client", email: str, password: str):
     """Test game auto login."""
-    login_result = await client.game_login(email, password)
-    auto_login_result = await client.game_auto_login(login_result.auto_token)
+    device_id = generate_uuid_uppercase()
+    login_result = await client.game_login(email, password, device_id=device_id)
+    auto_login_result = await client.game_auto_login(login_result.auto_token, device_id=device_id)
 
     assert auto_login_result.email == email
     assert not auto_login_result.first_login
