@@ -2,7 +2,10 @@
 
 import typing
 
-__all__ = ("KuroError",)
+__all__ = (
+    "GeetestTriggeredError",
+    "KuroError",
+)
 
 
 class KuroError(Exception):
@@ -33,12 +36,17 @@ class KuroError(Exception):
         return f"<{self.__class__.__name__} retcode={self.retcode} msg={self.msg!r} api_msg={self.api_msg!r} response={self.response}"
 
 
-# Example custom error class implementation:
-# class CustomError(KuroError):
-#     """Custom exception class."""
+class GeetestTriggeredError(KuroError):
+    """Geetest verification triggered error."""
 
-#     retcode = 35
-#     msg = "Custom error"
+    retcode = 41000
+    msg = "Geetest verification triggered"
+
+
+CUSTOM_ERRORS: typing.Mapping[int, type[KuroError]] = {
+    41000: GeetestTriggeredError,
+}
+"""Mapping of kuro retcodes to custom error classes."""
 
 
 RETCODES: typing.Mapping[str, int] = {
@@ -59,4 +67,8 @@ ERROR_TRANSLATIONS: typing.Mapping[int, str] = {
 
 def raise_from_data(data: typing.Mapping[str, typing.Any]) -> None:
     """Raise an exception from API data."""
+    code = data.get("code", data.get("codes"))
+    if code in CUSTOM_ERRORS:
+        raise CUSTOM_ERRORS[code](data)
+
     raise KuroError(data)

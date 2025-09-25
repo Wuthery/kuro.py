@@ -1,3 +1,3 @@
 """Auth-related utility."""
 
-from .md5 import *
+from .crypto import *

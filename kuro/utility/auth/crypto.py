@@ -1,8 +1,9 @@
-"""MD5 functions for hashing."""
+"""Crypto-related functions."""
 
 import base64
 import hashlib
 import typing
+import uuid
 
 
 def encode_md5_parameter(m: dict[str, typing.Any], app_key: str) -> str:
@@ -56,3 +57,13 @@ def encode_hex_md5(s: str) -> str:
         return hashlib.md5(s.encode()).hexdigest()
     except Exception:
         return s
+
+
+def generate_uuid() -> str:
+    """Generate a UUID."""
+    return str(uuid.uuid4())
+
+
+def generate_uuid_uppercase() -> str:
+    """Generate a UUID."""
+    return str(uuid.uuid4()).upper()

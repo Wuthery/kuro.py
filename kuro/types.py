@@ -2,7 +2,7 @@
 
 import enum
 
-__all__ = ["Game", "Lang"]
+__all__ = ["CaptchaId", "Game", "Lang"]
 
 
 class Game(str, enum.Enum):
@@ -80,3 +80,13 @@ class Region(str, enum.Enum):
 
     CHINESE = "cn"
     """Chinese"""
+
+
+class CaptchaId(str, enum.Enum):
+    """Captcha IDs."""
+
+    KUROBBS = "ec4aa4174277d822d73f2442a165a2cd"
+    """Kurobbs captcha Id"""
+
+    GAME = "1f4565ff7acc97b1a2fc97b921743aa4"
+    """Game captcha Id"""

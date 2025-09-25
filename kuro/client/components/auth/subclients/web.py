@@ -13,14 +13,14 @@ class WebAuthClient(base.BaseClient):
     """Web auth client."""
 
     @typing.overload
-    async def _send_sms_code(self, number: str, *, mmt_result: None = ...) -> bool: ...
+    async def send_sms_code(self, number: str, *, mmt_result: None = ...) -> bool: ...
 
     @typing.overload
-    async def _send_sms_code(
+    async def send_sms_code(
         self, number: str, *, mmt_result: models.MMTResult = ...
     ) -> typing.Literal[True]: ...
 
-    async def _send_sms_code(
+    async def send_sms_code(
         self, number: str, *, mmt_result: models.MMTResult | None = None
     ) -> bool:
         """Send SMS code to phone number.
@@ -43,7 +43,7 @@ class WebAuthClient(base.BaseClient):
 
         return not rsp["data"]["geeTest"]
 
-    async def _web_login(self, number: str, code: str) -> models.LoginResult:
+    async def web_login(self, number: str, code: str) -> models.LoginResult:
         """Login with a phone number and OTP code.
 
         ### Args:

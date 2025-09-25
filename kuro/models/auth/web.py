@@ -47,3 +47,12 @@ class MMTResult(pydantic.BaseModel):
     """Timestamp."""
     captcha_output: str
     """Verification output data."""
+
+    def get_game_dict(self) -> dict[str, str]:
+        """Get dictionary for game geetest verification."""
+        return {
+            "geetestCaptchaOutput": self.captcha_output,
+            "geetestGenTime": self.gen_time,
+            "geetestLotNumber": self.lot_number,
+            "geetestPassToken": self.pass_token,
+        }

@@ -9,11 +9,8 @@ import webbrowser
 import aiohttp
 from aiohttp import web
 
-from kuro import models
+from kuro import models, types
 from kuro.utility import geetest
-
-if typing.TYPE_CHECKING:
-    from kuro import types
 
 __all__ = ["PAGE", "launch_server", "solve_geetest"]
 
@@ -28,9 +25,9 @@ PAGE = """
   <script>
       window.initGeetest4(
         {
-          captchaId: "ec4aa4174277d822d73f2442a165a2cd", // Hardcoded by kuro
+          captchaId: "%s",
           product: "bind",
-          language: "{lang}",
+          language: "%s",
         },
         (captcha) => {
           captcha.onReady(() => {
@@ -52,14 +49,14 @@ PAGE = """
 GT_URL = "https://static.geetest.com/v4/gt4.js"
 
 
-async def launch_server(*, lang: str, port: int = 5000) -> models.MMTResult:
+async def launch_server(*, captcha_id: str, lang: str, port: int = 5000) -> models.MMTResult:
     """Create and run a web server to solve captcha."""
     routes = web.RouteTableDef()
     future: asyncio.Future[typing.Any] = asyncio.Future()
 
     @routes.get("/")
     async def index(_: web.Request) -> web.StreamResponse:  # noqa: RUF029
-        body = PAGE.replace("{lang}", lang or "en")  # noqa: RUF027
+        body = PAGE % (str(captcha_id), lang or "en")
         return web.Response(body=body, content_type="text/html")
 
     @routes.get("/gt.js")
@@ -98,7 +95,10 @@ async def launch_server(*, lang: str, port: int = 5000) -> models.MMTResult:
     return data
 
 
-async def solve_geetest(*, lang: types.Lang, port: int = 5000) -> models.MMTResult:
+async def solve_geetest(
+    *, captcha_id: types.CaptchaId | str, lang: types.Lang, port: int = 5000
+) -> models.MMTResult:
     """Start a web server and manually solve geetest captcha."""
     geetest_lang = geetest.lang_to_geetest_lang(lang)
-    return await launch_server(lang=geetest_lang, port=port)
+    captcha_id_str = captcha_id.value if isinstance(captcha_id, types.CaptchaId) else captcha_id
+    return await launch_server(captcha_id=captcha_id_str, lang=geetest_lang, port=port)
