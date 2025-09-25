@@ -137,7 +137,8 @@ class GameAuthClient(base.BaseClient):
             "token": auto_token,
             "client_id": "7rxmydkibzzsf12om5asjnoo",  # KR_PRODUCT_KEY in kr_sdk_config.json
             "deviceNum": device_id or auth.generate_uuid_uppercase(),
-            "productId": "A1725",
+            "sdkVersion": "2.6.0h",
+            "productId": "A1730",
             "projectId": "G153",
             "redirect_uri": 1,
             "response_type": "code",
