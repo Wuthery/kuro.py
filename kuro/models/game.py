@@ -75,6 +75,8 @@ class BasicRoleInfo(base.APIModel):
     """Maximum waveplates count."""
     refined_waveplates: int = pydantic.Field(alias="StoreEnergy")
     """Refined waveplates count."""
+    max_refined_waveplates: int = pydantic.Field(alias="MaxStoreEnergy")
+    """Maximum refined waveplates count."""
     refined_waveplates_replenish_time: datetime.datetime = pydantic.Field(
         alias="StoreEnergyRecoverTime"
     )
@@ -122,8 +124,59 @@ class BattlePassRoleInfo(base.APIModel):
     """Experience limit."""
 
 
+class SkinInfo(base.APIModel):
+    """Skin info."""
+
+    id: int = pydantic.Field(alias="SkinId")
+    """Skin ID."""
+    quality: int = pydantic.Field(alias="Quality")
+    """Skin quality."""
+
+
+class BikeInfo(base.APIModel):
+    """Bike info.
+
+    For accounts that don't have bike unlocked, all int fields will be 0.
+    """
+
+    level: int = pydantic.Field(alias="Level")
+    """Bike level."""
+    xp: int = pydantic.Field(alias="Exp")
+    """Bike experience."""
+    next_xp: int = pydantic.Field(alias="NextExp")
+    """Bike experience needed for next level."""
+    skins: list[SkinInfo] = pydantic.Field(alias="Skins")
+    """List of bike skins."""
+    equipped_skin: SkinInfo = pydantic.Field(alias="EquipSkin")
+    """Equipped bike skin."""
+
+
+class MusicAlbum(base.APIModel):
+    """Music album."""
+
+    id: int = pydantic.Field(alias="Id")
+    """Album ID."""
+    count: int = pydantic.Field(alias="Count")
+    """Number of songs collected in the album."""
+    total_count: int = pydantic.Field(alias="TotalCount")
+    """Total number of songs in the album."""
+
+
+class MusicInfo(base.APIModel):
+    """Music info."""
+
+    albums: list[MusicAlbum] = pydantic.Field(alias="Albums")
+    """List of music albums."""
+
+
 class RoleInfo(base.APIModel):
     """Game role info."""
 
     basic: BasicRoleInfo = pydantic.Field(alias="Base")
+    """Basic player info."""
+    bike: BikeInfo = pydantic.Field(alias="MotorData")
+    """Bike info."""
+    music: MusicInfo = pydantic.Field(alias="MusicData")
+    """Music info."""
     battle_pass: BattlePassRoleInfo = pydantic.Field(alias="BattlePass")
+    """Battle pass info."""
