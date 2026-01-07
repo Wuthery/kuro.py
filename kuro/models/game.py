@@ -15,7 +15,7 @@ class GameAccount(base.APIModel):
     """Account region."""
     level: int = pydantic.Field(alias="Level")
     """Account level."""
-    last_time_online: datetime.datetime = pydantic.Field(alias="LastTimeOnline")
+    last_time_online: datetime.datetime = pydantic.Field(alias="LastOnlineTime")
     """Last time the user was online."""
 
 
