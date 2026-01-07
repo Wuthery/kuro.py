@@ -22,7 +22,7 @@ keywords = [
     "kurobbs",
 ]
 dependencies = [
-    "pydantic>=2.0.1",
+    "pydantic>=2.12.5",
     "aiohttp>=3.8.4",
 ]
 
