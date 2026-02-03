@@ -42,7 +42,7 @@ Documentation = "https://github.com/Wuthery/kuro.py"
 [dependency-groups]
 dev = [
     "pre-commit>=4.0.0,<5",
-    "ruff>=0.14,<0.15",
+    "ruff>=0.15,<0.16",
 ]
 test = [
     "pytest>=9,<10",
