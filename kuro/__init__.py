@@ -9,4 +9,4 @@ from .constants import *
 from .errors import *
 from .types import *
 
-__version__ = "0.6.1"
+__version__ = "0.8.0"
