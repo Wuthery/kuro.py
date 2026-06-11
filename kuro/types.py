@@ -71,6 +71,12 @@ class WuWaBanner(enum.IntEnum):
     GIVEBACK_CUSTOM = 7
     """Beginner's Choice Convene (Giveback Custom Convene)"""
 
+    COLLAB_RESONATOR = 10
+    """Collaboration Resonator Convene"""
+
+    COLLAB_WEAPON = 11
+    """Collaboration Weapon Convene"""
+
 
 class Region(str, enum.Enum):
     """Region."""
